@@ -7,6 +7,6 @@ router.get("/cart", CartListController.getAllCartItems);
 
 router.post("/cart", CartListController.addCartItem)
 
-router.delete("/cart:id", CartListController.deleteCartItem);
+router.delete("/cart/:id", CartListController.deleteCartItem);
 
 export default router;

@@ -1,4 +1,3 @@
-import { getPrismaClient } from "@prisma/client/runtime/library";
 import ProductListService from "../services/ProductListService";
 
 const ProductListController = {

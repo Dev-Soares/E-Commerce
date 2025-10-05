@@ -2,7 +2,7 @@ import CartListService from "../services/CartListService.js";
 
 const CartListController = {
 
-    getAllCartItems: async (requestAnimationFrame, res) => {
+    getAllCartItems: async (req, res) => {
         try {
             const items = await CartListService.getAllCartItems();
             return res.status(200).json(items);
