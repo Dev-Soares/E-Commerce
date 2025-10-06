@@ -29,6 +29,18 @@ const ProductListController = {
         } catch (error) {
             return res.status(500).json({ error: "Failed to create product" });
         }
+    },
+
+    getProductById: async (req,res) => {
+        const id = req.params.id
+
+        try {
+            const searchedProduct = await ProductListService.getProductById(id);
+            return res.status(201).json(searchedProduct);
+        } catch (error) {
+            return res.status(500).json({ error: "Failed to fetch product"})
+        }
+
     }
 
     
