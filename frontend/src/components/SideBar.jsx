@@ -13,21 +13,21 @@ const SideBar = ({ isOpen, setIsOpen }) => {
                         </button>
                     </div>
 
-                    <div className='flex flex-col h-full w-auto justify-center items-start gap-14 text-2xl font-item'>
+                    <div className='flex flex-col h-full w-auto justify-center items-start gap-14 text-2xl lg:text-3xl font-item'>
                         <button className='flex w-full h-auto justify-center items-center gap-2 '>
-                            <img src="public/cart.png" alt="" className='w-[10%]'/>
+                            <img src="public/cart.png" alt="" className='w-[10%] lg:w-[12%] xl:w-[8%]'/>
                             Meu Carrinho
                         </button>
 
-                        <button className='flex w-full h-auto justify-center items-center gap-2 '>
-                            <img src="public/writing.png" alt="" className='w-[10%]'/>
+                        <button className='flex w-full h-auto justify-center items-center gap-2 lg:gap-3 '>
+                            <img src="public/writing.png" alt="" className='w-[10%] lg:w-[12%] xl:w-[8%]'/>
                             Anuncie aqui
                         </button>
                     </div>
                     <div className='w-[50%] flex justify-center items-center'>
 
 
-                        <button className='bg-white text-[var(--color-main)] font-title p-2 text-xl w-[90%] rounded-xl'>
+                        <button className='bg-white text-[var(--color-main)] font-title p-2 text-xl lg:text-2xl w-[90%] rounded-xl'>
                             Sair
                         </button>
                     </div>
