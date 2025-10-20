@@ -14,7 +14,7 @@ const CartListService = {
         });
     },
     
-    addToCart : async (id) => {
+    addToCart : async (id, quantityToAdd = 1) => {
 
          const updatedCartItem = await prisma.cart.upsert({
             
@@ -22,15 +22,23 @@ const CartListService = {
             where: { productId: id },
             
             // O QUE FAZER SE ENCONTRAR (UPDATE)
-            
+            update: {
+                quantity: {
+                    increment: quantityToAdd
+                }
+            },
+
             // O QUE FAZER SE NÃO ENCONTRAR (CREATE - Insert)
             create: {
-                productId: productId,
+                productId: id,
+                quantity: quantityToAdd
             },
             
             // Opcional: Incluir o produto para retornar dados completos
             include: { product: true } 
         });
+
+        return updatedCartItem;
     }
 
     

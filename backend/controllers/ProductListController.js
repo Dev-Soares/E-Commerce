@@ -1,4 +1,4 @@
-import ProductListService from "../services/ProductListService";
+import ProductListService from "../services/ProductListService.js";
 
 const ProductListController = {
     
