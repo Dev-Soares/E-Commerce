@@ -14,3 +14,10 @@
  body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
  }
+
+ @layer utilities {
+
+  .border-product{
+    border: rgb(218, 217, 217) 0.1px solid;
+  }
+ }
