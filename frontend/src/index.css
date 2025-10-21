@@ -1,27 +1,16 @@
 @import "tailwindcss";
-@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap");
+
 
 :root {
   --color-main: oklch(55.3% 0.195 38.402);
+  --color-main-light: oklch(68.572% 0.1972 39.638);
   --color-white: #ffffff;
 }
 
-@layer utilities {
-  .font-title {
-    font-family: "Inter", sans-serif;
-    font-optical-sizing: auto;
-    font-weight: 700;
-    font-style: normal;
-  }
+ * {
+  box-sizing: border-box;
+ }
 
-  .font-item {
-    font-family: "Inter", sans-serif;
-    font-optical-sizing: auto;
-    font-weight: 400;
-    font-style: normal;
-  }
-
-  .color-side {
-    background: rgba(202, 53, 0, 0.90);
-  }
-}
+ body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+ }
