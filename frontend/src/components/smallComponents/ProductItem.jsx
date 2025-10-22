@@ -33,9 +33,9 @@ const ProductItem = ({ productTitle, productPrice, productImg }) => {
 
     return (
 
-        <div className="w-auto h-fit flex flex-col rounded-xl shadow-lg border-product max-w-80 ">
+        <div className=" h-fit flex flex-col rounded-xl shadow-lg border-product w-80 cursor-pointer ">
             
-            <img src="/productPicture.jpg" alt="Product Image" className="w-full max-h-50 object-cover object-center" />
+            <img src="/productPicture.jpg" alt="Product Image" className="w-full max-h-50 object-cover object-center hover:translate-y-" />
             <div className="flex flex-col gap-2 p-5 w-full h-auto ">
                 <h3 className="text-2xl font-semibold">{productTitle}</h3>
                 <p className="text-3xl font-bold text-[var(--color-main)]">{productPrice}</p>
@@ -46,14 +46,14 @@ const ProductItem = ({ productTitle, productPrice, productImg }) => {
                         <p>{grade}</p>
                     </div>
                     <span>•</span>
-                    <p>{`${soldQuantity} Vendidos`}</p>
+                    <p>{`${soldQuantity} Sold`}</p>
                 </div>
 
             </div>
-            <div className="w-full h-auto flex justify-center items-center p-3 text-white font-semibold">
+            <div className="w-full h-auto flex justify-center items-center p-3 text-white font-semibold mb-2">
                 <button className="w-[80%] rounded-md bg-[var(--color-main)] flex flex-row justify-center items-center p-3 gap-1">
                     <span className='material-symbols-outlined'>add_shopping_cart</span>
-                    <p>Adicionar ao Carrinho</p>
+                    <p>Add to Cart</p>
 
 
                 </button>

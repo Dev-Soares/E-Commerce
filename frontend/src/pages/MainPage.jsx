@@ -1,6 +1,7 @@
 import Navbar from "../components/Navbar.jsx"
 import Hero from "../components/mainPageSections/Hero.jsx"
 import Products from "../components/mainPageSections/Products.jsx"
+import Footer from "../components/Footer.jsx"
 
 const MainPage = () => {
 
@@ -10,6 +11,7 @@ const MainPage = () => {
       <Navbar />
       <Hero />
       <Products />
+      <Footer />
     </main>
   )
 }
