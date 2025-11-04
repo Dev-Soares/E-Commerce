@@ -1,5 +1,3 @@
-
-
 generator client {
   provider = "prisma-client-js"
   
@@ -13,21 +11,21 @@ datasource db {
 
 model Product {
 
-  id          Int  @id @default(autoincrement())
+  id          String  @id @default(uuid())
   title       String?
-  description   String?
+  description String?
+  category    String?
   price       Float
-  stock       Int
   cartItem  Cart? 
 
 }
 
 model Cart {
 
-  id          Int      @id @default(autoincrement())
-  productId   Int      @unique // CHAVE DE REFERÊNCIA: Garante que um produto só aparece uma vez no carrinho
+  id          String   @id @default(uuid())
+  productId   String   @unique // CHAVE DE REFERÊNCIA: Garante que um produto só aparece uma vez no carrinho
   quantity    Int      @default(1)
 
-  product     Product  @relation(fields: [productId], references: [id])
+  product     Product  @relation(fields: [productId], references: [id]) 
 
 }

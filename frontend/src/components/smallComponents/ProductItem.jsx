@@ -33,7 +33,7 @@ const ProductItem = ({ productTitle, productPrice, productImg }) => {
 
     return (
 
-        <div className=" h-fit flex flex-col rounded-xl shadow-lg border-product w-80 cursor-pointer ">
+        <div className=" h-fit flex flex-col rounded-xl shadow-lg border-product bg-gray-100 w-80 cursor-pointer ">
             
             <img src="/productPicture.jpg" alt="Product Image" className="w-full max-h-50 object-cover object-center hover:translate-y-" />
             <div className="flex flex-col gap-2 p-5 w-full h-auto ">

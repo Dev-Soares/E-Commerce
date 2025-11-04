@@ -22,6 +22,7 @@ const ProductListController = {
     },
 
     createProduct : async (req,res) => {
+        
         const createdProduct = req.body;
         try {
             const newProduct = await ProductListService.createProduct(createdProduct);

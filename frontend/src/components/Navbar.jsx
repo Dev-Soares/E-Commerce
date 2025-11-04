@@ -1,31 +1,22 @@
-
-// ...existing code...
-const Navbar = () => {
+const Navbar = ({ setIsSidebarOpen, isSidebarOpen }) => {
   return (
-    <header className="w-full h-auto fixed border-product bg-white">
-        <nav className="h-16 w-full flex items-center justify-between p-4 px-5  text-white">
-            <div className="w-auto h-full">
-                <h1 className="text-lg text-[var(--color-main)] font-bold">MegaShop</h1>
-            </div>
-            <div className="w-auto h-full flex justify-center items-center ml-5 ">
-                
-                <div className="relative w-[100%] max-w-lg shadow-xl">
-                  
-                  <span className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-[var(--color-main)] pointer-events-none">
-                    search
-                  </span>
-                  
-                  <input
-                    type="text"
-                    className="w-full pl-10 focus:border-2 border-[var(--color-main)] rounded-xl text-black p-2"
-                    placeholder="Search for products..."
-                  />
-                </div>
-            </div>
-            <div className="w-auto h-full flex justify-center items-center ">
-                <button className="text-[var(--color-main)] px-4 py-2 rounded-xl cursor-pointer"><span className="material-symbols-outlined">shopping_cart</span></button>
-            </div>
-        </nav>
+    <header className="w-full h-auto fixed border-product bg-white p-4 lg:py-6 shadow-md z-50 md:px-16">
+      <nav className="w-full h-auto flex flex-row justify-between">
+        <div className="flex justify-center items-center">
+          <h1 className="text-xl md:text-2xl xl:text-3xl font-bold text-[var(--color-main)]">MegaShop</h1>
+        </div>
+        <div className="flex justify-center items-center text-[var(--color-main)] ">
+          <div className="flex flex-row gap-6 md:hidden ">
+            <button onClick={() => setIsSidebarOpen(!isSidebarOpen)} 
+            className=" flex justify-center items-center cursor-pointer hover:text-[var(--color-main-dark)] transition material-symbols-outlined">menu</button>
+          </div>
+          <ul className="hidden md:flex lg:text-lg xl:text-xl flex-row gap-6 lg:gap-10 xl:gap-14 font-semibold">
+            <li><a href="/" className="inline-block hover:bg-[var(--color-main-light)] hover:text-white p-2 rounded-xl transition-all duration-600 hover:-translate-y-0.5 whitespace-nowrap will-change-transform antialiased">Home</a></li>
+            <li><a href="/" className="inline-block hover:bg-[var(--color-main-light)] hover:text-white p-2 rounded-xl transition-all duration-600 hover:-translate-y-0.5 whitespace-nowrap will-change-transform antialiased">Products</a></li>
+            <li><a href="/list-product" className="inline-block hover:bg-[var(--color-main-light)] hover:text-white p-2 rounded-xl transition-all duration-600 hover:-translate-y-0.5 whitespace-nowrap will-change-transform antialiased">Announce Here</a></li>
+          </ul>
+        </div>
+      </nav>
     </header>
   )
 }

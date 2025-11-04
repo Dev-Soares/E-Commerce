@@ -15,7 +15,6 @@ const ProductListService = {
     },
 
     createProduct: async (productData) => {
-
         return await prisma.product.create({
             data: productData
         })
