@@ -20,13 +20,15 @@ const ProductPage = () => {
         try {
             const response = await axios.get('/products');
 
-            setProducts(response.data.slice(0, 3));
+            setProducts(response.data.slice(0, 2));
         } catch (error) {
             console.error("Error fetching products:", error);
         }
     };
 
     useEffect(() => {
+
+        window.scrollTo(0, 0);
         fetchProducts();
         getProductById(productId);
     }, []);

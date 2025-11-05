@@ -9,4 +9,6 @@ router.post("/cart/:id", CartListController.addCartItem)
 
 router.delete("/cart/:id", CartListController.deleteCartItem);
 
+router.put("/cart/quantity/:id", CartListController.updateQuantity);
+
 export default router;

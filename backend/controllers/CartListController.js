@@ -29,7 +29,19 @@ const CartListController = {
         } catch (error) {
             return res.status(500).json({ error: "Failed to add item to cart" });
         }
+    },
+
+    updateQuantity: async (req, res) => {
+        try {
+            const id = req.params.id;
+            const { quantity } = req.body;
+            const updatedItem = await CartListService.updateQuantity(id, quantity);
+            return res.status(200).json(updatedItem);
+        } catch (error) {
+            return res.status(500).json({ error: "Failed to update item quantity" });
+        }
     }
+
 }
 
 export default CartListController;
