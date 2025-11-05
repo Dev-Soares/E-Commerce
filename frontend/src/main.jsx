@@ -8,7 +8,7 @@ import ProductPage from './pages/ProductPage.jsx'
 import CartPage from './pages/CartPage.jsx'
 import axios from 'axios'
 
-axios.defaults.baseURL = 'http://localhost:3333/api';
+axios.defaults.baseURL = import.meta.env.VITE_API_URL;
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
