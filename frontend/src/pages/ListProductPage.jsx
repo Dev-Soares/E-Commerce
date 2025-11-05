@@ -1,6 +1,6 @@
 import Navbar from "../components/Navbar"
 import Footer from "../components/Footer"
-import SideBar from "../components/Sidebar"
+import Sidebar from "../components/Sidebar"
 import { useState } from "react"
 import axios from "axios"
 
@@ -43,7 +43,7 @@ const ListProductPage = () => {
   return (
     <main className=" min-h-screen w-full p-0 m-0 ">
         <Navbar isSidebarOpen={isSidebarOpen} setIsSidebarOpen={setIsSidebarOpen} />
-        <SideBar isSidebarOpen={isSidebarOpen} setIsSidebarOpen={setIsSidebarOpen} />
+        <Sidebar isSidebarOpen={isSidebarOpen} setIsSidebarOpen={setIsSidebarOpen} />
         <div className=" min-h-auto w-full flex p-8 py-34 flex-col items-center bg-gray-100">
             <h1 className=" text-3xl font-bold text-[var(--color-main)]">List your Product </h1>
 

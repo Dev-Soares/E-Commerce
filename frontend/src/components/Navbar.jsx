@@ -1,6 +1,6 @@
 const Navbar = ({ setIsSidebarOpen, isSidebarOpen }) => {
   return (
-    <header className="w-full h-auto fixed border-product bg-white p-4 lg:py-6 shadow-md z-50 md:px-16">
+    <header className="w-full h-auto border-product bg-white p-4 lg:py-6 shadow-md z-50 md:px-16">
       <nav className="w-full h-auto flex flex-row justify-between">
         <div className="flex justify-center items-center">
           <h1 className="text-xl md:text-2xl xl:text-3xl font-bold text-[var(--color-main)]">MegaShop</h1>
@@ -14,6 +14,7 @@ const Navbar = ({ setIsSidebarOpen, isSidebarOpen }) => {
             <li><a href="/" className="inline-block hover:bg-[var(--color-main-light)] hover:text-white p-2 rounded-xl transition-all duration-600 hover:-translate-y-0.5 whitespace-nowrap will-change-transform antialiased">Home</a></li>
             <li><a href="/" className="inline-block hover:bg-[var(--color-main-light)] hover:text-white p-2 rounded-xl transition-all duration-600 hover:-translate-y-0.5 whitespace-nowrap will-change-transform antialiased">Products</a></li>
             <li><a href="/list-product" className="inline-block hover:bg-[var(--color-main-light)] hover:text-white p-2 rounded-xl transition-all duration-600 hover:-translate-y-0.5 whitespace-nowrap will-change-transform antialiased">Announce Here</a></li>
+            <li><a href="/cart" className="inline-block hover:bg-[var(--color-main-light)] hover:text-white p-2 rounded-xl transition-all duration-600 hover:-translate-y-0.5 whitespace-nowrap will-change-transform antialiased"> <span className="material-symbols-outlined">shopping_cart</span></a></li>
           </ul>
         </div>
       </nav>

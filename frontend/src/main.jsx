@@ -4,6 +4,7 @@ import './index.css'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import MainPage from './pages/MainPage'
 import ListProductPage from './pages/ListProductPage.jsx'
+import ProductPage from './pages/ProductPage.jsx'
 import axios from 'axios'
 
 axios.defaults.baseURL = 'http://localhost:3333/api';
@@ -24,6 +25,13 @@ createRoot(document.getElementById('root')).render(
                 <ListProductPage />
               }
             />
+            <Route
+              path="/product-page"
+              element={
+                <ProductPage />
+              }
+            />
+
 
       </Routes>
     </BrowserRouter>

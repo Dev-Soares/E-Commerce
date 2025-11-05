@@ -3,7 +3,7 @@ import prisma from "../config/prisma.js"
 const ProductListService = {
 
     getAllProducts: async () => {
-
+        
         return await prisma.product.findMany();
     },
 
@@ -15,9 +15,17 @@ const ProductListService = {
     },
 
     createProduct: async (productData) => {
-        return await prisma.product.create({
-            data: productData
-        })
+        try {
+            console.log("Creating product with data:", productData);
+            const product = await prisma.product.create({
+                data: productData
+            });
+            console.log("Product created successfully:", product);
+            return product;
+        } catch (error) {
+            console.error("Prisma error details:", error);
+            throw error;
+        }
     },
 
     getProductById: async (productId) => {

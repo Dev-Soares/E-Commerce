@@ -1,9 +1,24 @@
+import React, { useEffect, useState } from 'react'
+import axios from 'axios'
 import ProductItem from '../smallComponents/ProductItem.jsx'
 
 const Products = () => {
 
-  const products = [];
+  const [products, setProducts] = useState([]);
 
+  const fetchProducts = async () => {
+    try {
+      const response = await axios.get('/products');
+      
+      setProducts([...response.data]);
+    } catch (error) {
+      console.error("Error fetching products:", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchProducts();
+  }, []);
 
   return (
     <section id='products' className="min-h-screen w-full flex flex-col p-4 md:p-12 bg-white">
@@ -13,21 +28,18 @@ const Products = () => {
         </div>
         
         <div className="flex justify-center items-center gap-4 md:gap-16 flex-wrap ">
-          {/*{ products.map(() => {
-
-        })}*/}
-          <ProductItem productTitle='Teste Teste Teste' productPrice='R$330,00'/>
-          <ProductItem productTitle='Teste Teste Teste' productPrice='R$330,00'/>
-          
-          <ProductItem productTitle='Teste Teste Teste' productPrice='R$330,00'/>
-          <ProductItem productTitle='Teste Teste Teste' productPrice='R$330,00'/>
-          <ProductItem productTitle='Teste Teste Teste' productPrice='R$330,00'/>
-          
-          <ProductItem productTitle='Teste Teste Teste' productPrice='R$330,00'/>
-          <ProductItem productTitle='Teste Teste Teste' productPrice='R$330,00'/>
-          <ProductItem productTitle='Teste Teste Teste' productPrice='R$330,00'/>
-          
-          
+          { products.map((product) => {
+            return (
+              <ProductItem 
+                key={product.id}
+                productTitle={product.title} 
+                productPrice={product.price} 
+                productCategory={product.category} 
+                productId={product.id}
+                productDescription={product.description}
+              />
+            )
+          })}
         </div>
 
     </section>

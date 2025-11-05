@@ -3,9 +3,10 @@ import ProductListService from "../services/ProductListService.js";
 const ProductListController = {
     
     getAllProducts: async  (req, res) => {
+        
         try {
             const products = await ProductListService.getAllProducts();
-            return res.status(200).json(products)
+            return res.status(200).json(products);
         } catch (error) {
             return res.status(500).json({ error: "Failed to fetch products" });
         }
@@ -22,7 +23,7 @@ const ProductListController = {
     },
 
     createProduct : async (req,res) => {
-        
+        console.log("Received request to create product:", req.body);
         const createdProduct = req.body;
         try {
             const newProduct = await ProductListService.createProduct(createdProduct);
