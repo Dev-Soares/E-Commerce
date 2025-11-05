@@ -46,7 +46,7 @@ const Sidebar = ({ isSidebarOpen, setIsSidebarOpen }) => {
               Announce with us
             </a>
             <a
-              href="/cart"
+              href="/cart-page"
               className="text-white text-lg font-semibold hover:bg-white/10 p-3 rounded-lg transition flex items-center gap-2"
             >
               <span className="material-symbols-outlined">shopping_cart</span>Cart

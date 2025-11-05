@@ -1,5 +1,6 @@
 import {useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 
 const ProductItem = ({ productTitle, productPrice, productCategory, productId, productDescription }) => {
@@ -63,6 +64,11 @@ const ProductItem = ({ productTitle, productPrice, productCategory, productId, p
 
     const handleAddToCart = (e) => {
         e.stopPropagation();
+        try {
+            axios.post(`/cart/${productId}`);
+        } catch (error) {
+            console.error("Error adding product to cart:", error);
+        }
     };
 
     return (

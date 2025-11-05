@@ -35,6 +35,18 @@ const ProductPage = () => {
         return setMyProductId(id);
     }
 
+    const handleAddToCart = async (e) => {
+        e.stopPropagation();
+
+        try {
+
+            await axios.post(`/cart/${productId}`);
+        } catch (error) {
+            
+            console.error("Error adding product to cart:", error);
+        }
+    };
+
     return (
         <main className=" min-h-screen w-full p-0 m-0 overflow-x-hidden overflow-y-auto">
             <Navbar isSidebarOpen={isSidebarOpen} setIsSidebarOpen={setIsSidebarOpen} />
@@ -57,7 +69,8 @@ const ProductPage = () => {
                         </div>
                     </div>
                     <div className='w-full h-auto flex justify-center items-center mb-12'>
-                        <button className='w-full rounded-md bg-[var(--color-main)] text-white flex flex-row justify-center items-center p-3 gap-1 cursor-pointer hover:bg-[var(--color-main-light)] transition-all duration-300 hover:translate-y-[-2px] lg:w-1/2 xl:w-[40%]'>
+                        <button onClick={(e) => handleAddToCart(e)}
+                         className='w-full rounded-md bg-[var(--color-main)] text-white flex flex-row justify-center items-center p-3 gap-1 cursor-pointer hover:bg-[var(--color-main-light)] transition-all duration-300 hover:translate-y-[-2px] lg:w-[40%] xl:w-[30%]'>
                             <span className='material-symbols-outlined'>add_shopping_cart</span>
                             <p>Add to Cart</p>
                         </button>
@@ -70,7 +83,7 @@ const ProductPage = () => {
 
                 </div>
                 <div className='h-auto w-full p-4 gap-4 my-8 flex flex-col  '>
-                    <h3 className='self-start lg:self-center text-2xl font-semibold mb-8 '>Other Products</h3>
+                    <h3 className='self-start lg:self-center text-2xl font-semibold mb-8 lg:text-3xl '>Other Products</h3>
                     <div className='w-full h-auto flex flex-col justify-center items-center flex-wrap gap-4  '>
                         {products.map((product) => product.id !== myProductId && (
                         <ProductItem

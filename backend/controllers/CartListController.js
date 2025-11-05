@@ -23,8 +23,8 @@ const CartListController = {
 
     addCartItem : async (req,res) => {
         try {
-            const newItem = req.body;
-            const createdItem = await CartListService.addToCart(newItem.id);
+            const id = req.params.id;
+            const createdItem = await CartListService.addToCart(id);
             return res.status(201).json(createdItem);
         } catch (error) {
             return res.status(500).json({ error: "Failed to add item to cart" });

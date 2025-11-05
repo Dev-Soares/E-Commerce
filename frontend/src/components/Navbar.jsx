@@ -14,7 +14,7 @@ const Navbar = ({ setIsSidebarOpen, isSidebarOpen }) => {
             <li><a href="/" className="inline-block hover:bg-[var(--color-main-light)] hover:text-white p-2 rounded-xl transition-all duration-600 hover:-translate-y-0.5 whitespace-nowrap will-change-transform antialiased">Home</a></li>
             <li><a href="/" className="inline-block hover:bg-[var(--color-main-light)] hover:text-white p-2 rounded-xl transition-all duration-600 hover:-translate-y-0.5 whitespace-nowrap will-change-transform antialiased">Products</a></li>
             <li><a href="/list-product" className="inline-block hover:bg-[var(--color-main-light)] hover:text-white p-2 rounded-xl transition-all duration-600 hover:-translate-y-0.5 whitespace-nowrap will-change-transform antialiased">Announce Here</a></li>
-            <li><a href="/cart" className="inline-block hover:bg-[var(--color-main-light)] hover:text-white p-2 rounded-xl transition-all duration-600 hover:-translate-y-0.5 whitespace-nowrap will-change-transform antialiased"> <span className="material-symbols-outlined">shopping_cart</span></a></li>
+            <li><a href="/cart-page" className="inline-block hover:bg-[var(--color-main-light)] hover:text-white p-2 rounded-xl transition-all duration-600 hover:-translate-y-0.5 whitespace-nowrap will-change-transform antialiased"> <span className="material-symbols-outlined">shopping_cart</span></a></li>
           </ul>
         </div>
       </nav>
