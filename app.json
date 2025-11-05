@@ -1,0 +1,17 @@
+{
+  "buildpacks": [
+    {
+      "url": "heroku/nodejs"
+    }
+  ],
+  "scripts": {
+    "postdeploy": "npm install --prefix backend && npm run migrate --prefix backend"
+  },
+  "environments": {
+    "test": {
+      "scripts": {
+        "test": "npm test --prefix backend"
+      }
+    }
+  }
+}
