@@ -17,7 +17,6 @@ const ListProductPage = () => {
 
     try {
       const response = await axios.get("/cart");
-      console.log("Cart items fetched:", response.data);
       setCartItems([...response.data]);
     } catch (error) {
       console.error("Error fetching cart items:", error);
@@ -25,7 +24,7 @@ const ListProductPage = () => {
   };
 
   const getTotalPrice = () => {
-    let total = 0;
+
     return cartItems.reduce((accumulator, item) => {
       return accumulator + (item.product.price * item.quantity);
     }, 0);
@@ -55,7 +54,7 @@ const ListProductPage = () => {
               <p className="text-xl! font-normal text-gray-500">Your cart is empty.</p>
             ) : (
               cartItems.map(item => (
-                <CartProduct key={item.product.id} productId={item.product.id} productTitle={item.product.title} productPrice={item.product.price} productCategory={item.product.category} productQuantity={item.quantity} />
+                <CartProduct key={item.product.id} productId={item.product.id} productTitle={item.product.title} productPrice={item.product.price} productCategory={item.product.category} productQuantity={item.quantity} onUpdate={fetchCartItems} />
               ))
             )}
           </div>

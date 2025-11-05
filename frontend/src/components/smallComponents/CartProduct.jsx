@@ -2,9 +2,10 @@ import React from 'react'
 import { useEffect, useState } from "react"
 import axios from "axios"
 
-const CartProduct = ({ productId, productTitle, productPrice, productCategory, productQuantity }) => {
+const CartProduct = ({ productId, productTitle, productPrice, productCategory, productQuantity, onUpdate }) => {
 
     const [icon, setIcon] = useState("");
+    const [quantity, setQuantity] = useState(productQuantity);
 
     useEffect(() => {
         const iconName = getIcon();
@@ -28,33 +29,36 @@ const CartProduct = ({ productId, productTitle, productPrice, productCategory, p
         }
     }
 
-    const handleRemoveFromCart = (id) => {
+    const handleRemoveFromCart = async (id) => {
 
         try {
-            axios.delete(`/cart/${id}`);
+            await axios.delete(`/cart/${id}`);
+            onUpdate();
         } catch (error) {
             console.error("Error removing item from cart:", error);
         }
     };
 
-    const handleAddQuantity = (id) => {
+    const handleAddQuantity = async (id) => {
 
         try {
-            axios.put(`/cart/quantity/${id}`, { quantity: productQuantity + 1 });
+            await axios.put(`/cart/quantity/${id}`, { quantity: productQuantity + 1 });
+            setQuantity(quantity + 1);
         } catch (error) {
             console.error("Error adding quantity:", error);
         }
 
     };
 
-    const handleRemoveQuantity = (id) => {
+    const handleRemoveQuantity = async (id) => {
 
         if (productQuantity <= 1) {
             return handleRemoveFromCart(id);
         };
 
         try {
-            axios.put(`/cart/quantity/${id}`, { quantity: productQuantity - 1 });
+            await axios.put(`/cart/quantity/${id}`, { quantity: productQuantity - 1 });
+            setQuantity(quantity - 1);
         } catch (error) {
             console.error("Error removing quantity:", error);
         }
@@ -73,7 +77,7 @@ const CartProduct = ({ productId, productTitle, productPrice, productCategory, p
                 <div className='flex flex-row gap-10 justify-center items-center mt-2'>
                     <div className='flex flex-row gap-3 justify-center items-center'>
                         <button onClick={() => handleRemoveQuantity(productId)} className='bg-gray-200 text-gray-700 rounded-md p-1 hover:bg-gray-300 transition-all duration-300 material-symbols-outlined cursor-pointer'>remove</button>
-                    <p className='text-lg font-medium'>{productQuantity || 1}</p>
+                    <p className='text-lg font-medium'>{quantity}</p>
                     <button onClick={() => handleAddQuantity(productId)} className='bg-gray-200 text-gray-700 rounded-md p-1 hover:bg-gray-300 transition-all duration-300 material-symbols-outlined cursor-pointer'>add</button>
                     </div>
                     <div className='flex justify-center items-center'>

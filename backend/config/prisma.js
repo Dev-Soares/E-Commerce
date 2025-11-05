@@ -1,7 +1,7 @@
-import pkg from '@prisma/client';
+import { PrismaClient } from '@prisma/client'
 
-const { PrismaClient } = pkg;
+const prisma = new PrismaClient({
+  log: ['query', 'info', 'warn', 'error'], // Habilita todos os logs
+})
 
-const prisma = new PrismaClient();
-
-export default prisma;
+export default prisma

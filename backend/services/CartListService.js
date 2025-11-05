@@ -8,9 +8,10 @@ const CartListService = {
         });
     },
 
-    deleteFromCart: async (id) => {
+    deleteCartItem: async (id) => {
+        console.log(" request to delete cart item with id:", id);
         return await prisma.cart.delete({
-            where: { id: Number(id) }
+            where: { productId: id }
         });
     },
     
@@ -18,23 +19,21 @@ const CartListService = {
 
          const updatedCartItem = await prisma.cart.upsert({
             
-            // CONDIÇÃO DE BUSCA: Tenta encontrar um item do carrinho com este productId
             where: { productId: id },
             
-            // O QUE FAZER SE ENCONTRAR (UPDATE)
+            
             update: {
                 quantity: {
                     increment: quantityToAdd
                 }
             },
 
-            // O QUE FAZER SE NÃO ENCONTRAR (CREATE - Insert)
+            
             create: {
                 productId: id,
                 quantity: quantityToAdd
             },
             
-            // Opcional: Incluir o produto para retornar dados completos
             include: { product: true } 
         });
 
@@ -43,7 +42,7 @@ const CartListService = {
 
     updateQuantity: async (id, quantity) => {
         return await prisma.cart.update({
-            where: { id: Number(id) },
+            where: { productId: id },
             data: { quantity: quantity },
             include: { product: true }
         });

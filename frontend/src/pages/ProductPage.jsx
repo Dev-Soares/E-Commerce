@@ -31,7 +31,7 @@ const ProductPage = () => {
         window.scrollTo(0, 0);
         fetchProducts();
         getProductById(productId);
-    }, []);
+    }, [productId]);
 
     const getProductById = (id) => {
         return setMyProductId(id);

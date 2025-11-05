@@ -12,6 +12,7 @@ const CartListController = {
     },
 
     deleteCartItem: async (req, res) => {
+        
         try {
             const id = req.params.id;
             const deletedItem = await CartListService.deleteCartItem(id);
