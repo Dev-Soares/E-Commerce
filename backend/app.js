@@ -9,7 +9,7 @@ const app = express();
 dotenv.config();
 
 app.use(cors({
-  origin: 'http://localhost:5173' // URL do seu frontend
+  origin: 'https://e-commerce-megashop.vercel.app/' // URL do seu frontend
 }));
 
 app.use(express.json());
