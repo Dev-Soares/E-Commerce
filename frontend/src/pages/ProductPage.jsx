@@ -19,8 +19,10 @@ const ProductPage = () => {
     const fetchProducts = async () => {
         try {
             const response = await axios.get('/products');
-
-            setProducts(response.data.slice(0, 2));
+            
+            // Embaralha o array e pega 3 aleatórios
+            const shuffled = response.data.sort(() => Math.random() - 0.5);
+            setProducts(shuffled.slice(0, 3));
         } catch (error) {
             console.error("Error fetching products:", error);
         }
