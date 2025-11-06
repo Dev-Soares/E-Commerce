@@ -73,7 +73,7 @@ const ProductItem = ({ productTitle, productPrice, productCategory, productId, p
 
     return (
 
-        <div onClick={(e) => goToProductPage(e)} className=" h-fit flex flex-col rounded-xl shadow-lg border-product bg-gray-100 w-80 cursor-pointer hover:shadow-xl hover:translate-y-[-3px] transition-transform duration-300 ">
+        <div onClick={(e) => goToProductPage(e)} className=" h-fit flex flex-col rounded-xl shadow-lg border-product bg-gray-100 w-80 cursor-pointer hover:shadow-xl hover:translate-y-[-3px] transition-transform duration-300 max-h-116 ">
             <div className="w-full h-48 bg-gray-100 rounded-t-xl flex justify-center items-center ">
                 <span className='material-symbols-outlined text-[var(--color-main)] text-6xl! hover:scale-115 transition-transform duration-300'>{icon}</span>
             </div>
