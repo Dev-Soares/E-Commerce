@@ -1,12 +1,12 @@
 import {useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom';
-import { useAlert } from '../../contexts/AlertContext';
-import axios from 'axios';
+import { useCart } from '../../contexts/CartContext';
+
 
 
 const ProductItem = ({ productTitle, productPrice, productCategory, productId, productDescription }) => {
 
-    const { successAlert, errorAlert } = useAlert();
+    const { addProductToCart } = useCart();
 
     const [grade, setGrade] = useState(null)
     const [icon, setIcon] = useState(null)
@@ -67,13 +67,7 @@ const ProductItem = ({ productTitle, productPrice, productCategory, productId, p
 
     const handleAddToCart = (e) => {
         e.stopPropagation();
-        try {
-            axios.post(`/cart/${productId}`);
-            successAlert("Product added to cart successfully!");
-        } catch (error) {
-            console.error("Error adding product to cart:", error);
-            errorAlert("Failed to add product to cart.");
-        }
+        addProductToCart(productId);
     };
 
     return (

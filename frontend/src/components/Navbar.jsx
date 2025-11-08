@@ -1,25 +1,10 @@
-import axios from 'axios';
-import { useEffect, useState } from 'react';
+
+import { useCart } from '../contexts/CartContext.jsx';
 
 
 const Navbar = ({ setIsSidebarOpen, isSidebarOpen }) => {
 
-  const [cartNumber, setCartNumber] = useState(0);
-
-  const getTotalCartItems = async () => {
-    try {
-      const response = await axios.get("/cart/total");
-      setCartNumber(response.data.totalItems);
-      return response.data.totalItems;
-    } catch (error) {
-      console.error("Error fetching total cart items:", error);
-      return 0;
-    }
-  };
-
-  useEffect(() => {
-    getTotalCartItems();
-  }, []);
+  const { cartNumber } = useCart();
 
   return (
     <header className="w-full h-auto border-product bg-white p-4 lg:py-6 shadow-md z-50 md:px-16">

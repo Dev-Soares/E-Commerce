@@ -3,25 +3,19 @@ import Footer from "../components/Footer"
 import Sidebar from "../components/Sidebar"
 import { useEffect, useState } from "react"
 import CartProduct from "../components/smallComponents/CartProduct"
-import axios from "axios"
+import { useCart } from "../contexts/CartContext"
 
 
 
 const ListProductPage = () => {
 
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-  const [cartItems, setCartItems] = useState([]);
+  
   const [totalPrice, setTotalPrice] = useState(0);
 
-  const fetchCartItems = async () => {
+  const { cartItems, fetchCartItems } = useCart();
 
-    try {
-      const response = await axios.get("/cart");
-      setCartItems([...response.data]);
-    } catch (error) {
-      console.error("Error fetching cart items:", error);
-    }
-  };
+  
 
   const getTotalPrice = () => {
 
@@ -54,7 +48,7 @@ const ListProductPage = () => {
               <p className="text-xl! font-normal text-gray-500">Your cart is empty.</p>
             ) : (
               cartItems.map(item => (
-                <CartProduct key={item.product.id} productId={item.product.id} productTitle={item.product.title} productPrice={item.product.price} productCategory={item.product.category} productQuantity={item.quantity} onUpdate={fetchCartItems} />
+                <CartProduct key={item.product.id} productId={item.product.id} productTitle={item.product.title} productPrice={item.product.price} productCategory={item.product.category} productQuantity={item.quantity} />
               ))
             )}
           </div>

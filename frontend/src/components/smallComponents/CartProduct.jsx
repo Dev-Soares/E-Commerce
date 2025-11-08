@@ -2,13 +2,14 @@ import React from 'react'
 import { useEffect, useState } from "react"
 import axios from "axios"
 import { useAlert } from '../../contexts/AlertContext';
+import { useCart } from '../../contexts/CartContext';
 
-const CartProduct = ({ productId, productTitle, productPrice, productCategory, productQuantity, onUpdate }) => {
+const CartProduct = ({ productId, productTitle, productPrice, productCategory, productQuantity, }) => {
 
     const [icon, setIcon] = useState("");
     const [quantity, setQuantity] = useState(productQuantity);
 
-    const { successAlert, errorAlert } = useAlert();
+    const { handleAddQuantity, handleRemoveQuantity, handleRemoveFromCart } = useCart();
 
     useEffect(() => {
         const iconName = getIcon();
@@ -32,43 +33,9 @@ const CartProduct = ({ productId, productTitle, productPrice, productCategory, p
         }
     }
 
-    const handleRemoveFromCart = async (id) => {
+    
 
-        try {
-            await axios.delete(`/cart/${id}`);
-            onUpdate();
-            successAlert("Product removed from cart successfully!");
-        } catch (error) {
-            console.error("Error removing item from cart:", error);
-            errorAlert("Failed to remove product from cart.");
-        }
-    };
-
-    const handleAddQuantity = async (id) => {
-
-        try {
-            await axios.put(`/cart/quantity/${id}`, { quantity: productQuantity + 1 });
-            setQuantity(quantity + 1);
-        } catch (error) {
-            console.error("Error adding quantity:", error);
-        }
-
-    };
-
-    const handleRemoveQuantity = async (id) => {
-
-        if (productQuantity <= 1) {
-            return handleRemoveFromCart(id);
-        };
-
-        try {
-            await axios.put(`/cart/quantity/${id}`, { quantity: productQuantity - 1 });
-            setQuantity(quantity - 1);
-        } catch (error) {
-            console.error("Error removing quantity:", error);
-        }
-    };
-
+    
     return (
         <div  className=' hover:translate-y-[-3px] transition-all duration-400 w-full h-auto flex flex-row bg-white shadow-lg  rounded-lg p-2 py-4 md:max-w-[70%] justify-start items-center gap-4 '>
             <div className='flex justify-start items-center max-w-[50%] h-full'>
@@ -81,9 +48,9 @@ const CartProduct = ({ productId, productTitle, productPrice, productCategory, p
                 </div>
                 <div className='flex flex-row gap-10 justify-center items-center mt-2'>
                     <div className='flex flex-row gap-3 justify-center items-center'>
-                        <button onClick={() => handleRemoveQuantity(productId)} className='bg-gray-200 text-gray-700 rounded-md p-1 hover:bg-gray-300 transition-all duration-300 material-symbols-outlined cursor-pointer'>remove</button>
+                        <button onClick={() => handleRemoveQuantity(productId, quantity, setQuantity)} className='bg-gray-200 text-gray-700 rounded-md p-1 hover:bg-gray-300 transition-all duration-300 material-symbols-outlined cursor-pointer'>remove</button>
                     <p className='text-lg font-medium'>{quantity}</p>
-                    <button onClick={() => handleAddQuantity(productId)} className='bg-gray-200 text-gray-700 rounded-md p-1 hover:bg-gray-300 transition-all duration-300 material-symbols-outlined cursor-pointer'>add</button>
+                    <button onClick={() => handleAddQuantity(productId, quantity, setQuantity)} className='bg-gray-200 text-gray-700 rounded-md p-1 hover:bg-gray-300 transition-all duration-300 material-symbols-outlined cursor-pointer'>add</button>
                     </div>
                     <div className='flex justify-center items-center'>
                         <button onClick={() => handleRemoveFromCart(productId)} className='bg-red-600 text-white rounded-md p-1 hover:bg-red-700 transition-all duration-300 material-symbols-outlined cursor-pointer'>delete</button>

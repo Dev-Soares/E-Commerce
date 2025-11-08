@@ -8,6 +8,7 @@ import ProductPage from './pages/ProductPage.jsx'
 import CartPage from './pages/CartPage.jsx'
 import axios from 'axios'
 import { AlertProvider } from './contexts/AlertContext.jsx';
+import { CartProvider } from './contexts/CartContext.jsx';
 
 axios.defaults.baseURL = import.meta.env.VITE_API_URL;
 
@@ -16,6 +17,7 @@ createRoot(document.getElementById('root')).render(
 
     <BrowserRouter>
       <AlertProvider>
+        <CartProvider>
         <Routes>
           <Route
             path='/'
@@ -44,6 +46,7 @@ createRoot(document.getElementById('root')).render(
 
 
         </Routes>
+        </CartProvider>
       </AlertProvider>
     </BrowserRouter>
   </StrictMode>,
