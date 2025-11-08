@@ -36,6 +36,12 @@ const ProductListService = {
             }
         })
 
+    },
+
+    getProductsByCategory: async (category) => {
+        return await prisma.product.findMany({
+            where: { category: category }
+        });
     }
 }
 

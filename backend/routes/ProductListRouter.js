@@ -11,5 +11,7 @@ router.delete("/products/:id", ProductListController.deleteProduct);
 
 router.get("/products/:id", ProductListController.getProductById);
 
+router.get("/products/category/:category", ProductListController.getProductsByCategory);
+
 
 export default router;

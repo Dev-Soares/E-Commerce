@@ -43,7 +43,6 @@ const ProductPage = () => {
         e.stopPropagation();
 
         try {
-
             await axios.post(`/cart/${productId}`);
         } catch (error) {
             

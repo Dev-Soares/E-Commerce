@@ -43,9 +43,19 @@ const ProductListController = {
             return res.status(500).json({ error: "Failed to fetch product"})
         }
 
-    }
+    },
 
-    
-}
+    getProductsByCategory: async (req, res) => {
+
+        const category = req.params.category;
+
+        try {
+            const products = await ProductListService.getProductsByCategory(category);
+            return res.status(200).json(products);
+        } catch (error) {
+            return res.status(500).json({ error: "Failed to fetch products by category" });
+        }
+    }
+};
 
 export default ProductListController;

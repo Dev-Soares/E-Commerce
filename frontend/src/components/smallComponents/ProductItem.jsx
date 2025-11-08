@@ -47,7 +47,7 @@ const ProductItem = ({ productTitle, productPrice, productCategory, productId, p
                 return 'sports_soccer';
             case 'furniture':
                 return 'chair';
-            case 'home-appliances':
+            case 'home':
                 return 'kitchen';
             case 'tools':
                 return 'construction';
