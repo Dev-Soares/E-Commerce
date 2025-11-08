@@ -46,6 +46,10 @@ const CartListService = {
             data: { quantity: quantity },
             include: { product: true }
         });
+    },
+
+    getCartTotalItems: async () => {       
+        return await prisma.cart.count();
     }
 
     

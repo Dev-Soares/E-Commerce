@@ -1,4 +1,26 @@
+import axios from 'axios';
+import { useEffect, useState } from 'react';
+
+
 const Navbar = ({ setIsSidebarOpen, isSidebarOpen }) => {
+
+  const [cartNumber, setCartNumber] = useState(0);
+
+  const getTotalCartItems = async () => {
+    try {
+      const response = await axios.get("/cart/total");
+      setCartNumber(response.data.totalItems);
+      return response.data.totalItems;
+    } catch (error) {
+      console.error("Error fetching total cart items:", error);
+      return 0;
+    }
+  };
+
+  useEffect(() => {
+    getTotalCartItems();
+  }, []);
+
   return (
     <header className="w-full h-auto border-product bg-white p-4 lg:py-6 shadow-md z-50 md:px-16">
       <nav className="w-full h-auto flex flex-row justify-between">
@@ -14,7 +36,11 @@ const Navbar = ({ setIsSidebarOpen, isSidebarOpen }) => {
             <li><a href="/" className="inline-block hover:bg-[var(--color-main-light)] hover:text-white p-2 rounded-xl transition-all duration-600 hover:-translate-y-0.5 whitespace-nowrap will-change-transform antialiased">Home</a></li>
             <li><a href="/" className="inline-block hover:bg-[var(--color-main-light)] hover:text-white p-2 rounded-xl transition-all duration-600 hover:-translate-y-0.5 whitespace-nowrap will-change-transform antialiased">Products</a></li>
             <li><a href="/list-product" className="inline-block hover:bg-[var(--color-main-light)] hover:text-white p-2 rounded-xl transition-all duration-600 hover:-translate-y-0.5 whitespace-nowrap will-change-transform antialiased">Announce Here</a></li>
-            <li><a href="/cart-page" className="inline-block hover:bg-[var(--color-main-light)] hover:text-white p-2 rounded-xl transition-all duration-600 hover:-translate-y-0.5 whitespace-nowrap will-change-transform antialiased"> <span className="material-symbols-outlined">shopping_cart</span></a></li>
+            <li>
+              <a href="/cart-page" className="block hover:bg-[var(--color-main-light)] hover:text-white p-2 rounded-xl transition-all duration-600 hover:-translate-y-0.5 whitespace-nowrap will-change-transform antialiased">
+               <span className="material-symbols-outlined">shopping_cart</span>{ cartNumber > 0 &&<span className='absolute font-normal top-[-4px] ml-6 rounded-full bg-[var(--color-main)] w-5 h-5 flex justify-center items-center text-white text-sm right-[-4px]'>{cartNumber}</span> }
+               </a>
+               </li>
           </ul>
         </div>
       </nav>

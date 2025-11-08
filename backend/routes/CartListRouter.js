@@ -11,4 +11,6 @@ router.delete("/cart/:id", CartListController.deleteCartItem);
 
 router.put("/cart/quantity/:id", CartListController.updateQuantity);
 
+router.get("/cart/total", CartListController.getCartTotalItems);
+
 export default router;

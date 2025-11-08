@@ -41,6 +41,15 @@ const CartListController = {
         } catch (error) {
             return res.status(500).json({ error: "Failed to update item quantity" });
         }
+    },
+
+    getCartTotalItems: async (req, res) => {
+        try {
+            const totalItems = await CartListService.getCartTotalItems();
+            return res.status(200).json({ totalItems });
+        } catch (error) {
+            return res.status(500).json({ error: "Failed to fetch total cart items" });
+        }
     }
 
 }
