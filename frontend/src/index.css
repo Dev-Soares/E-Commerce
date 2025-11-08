@@ -22,3 +22,33 @@
     border: rgb(218, 217, 217) 0.1px solid;
   }
  }
+
+ @keyframes custom-enter {
+  0% {
+    transform: translate3d(0, -200%, 0) scale(0.6);
+    opacity: 0.5;
+  }
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes custom-leave {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(0.6);
+    opacity: 0;
+  }
+}
+
+.animate-custom-enter {
+  animation: custom-enter 0.35s cubic-bezier(0.21, 1.02, 0.73, 1) forwards;
+}
+
+.animate-custom-leave {
+  animation: custom-leave 0.4s forwards cubic-bezier(0.06, 0.71, 0.55, 1);
+}
