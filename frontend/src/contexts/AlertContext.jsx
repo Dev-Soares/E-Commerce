@@ -1,6 +1,6 @@
 import { createContext, useContext } from "react";
 import toast from "react-hot-toast";
-import { Toaster } from 'react-hot-toast'
+import { Toaster } from 'react-hot-toast';
 import SuccessAlert from "../components/customAlerts/SuccessAlert.jsx";
 import ErrorAlert from "../components/customAlerts/ErrorAlert.jsx";
 

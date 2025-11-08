@@ -34,9 +34,11 @@ const ListProductPage = () => {
         try {
             const response = await axios.post('/products', productData);
             clearInputs();
+            successAlert("Product listed successfully!");
         } catch (error) {
             console.error("Error listing product:", error);
-        } 
+            errorAlert("Failed to list product.");
+        }
 
     }
 

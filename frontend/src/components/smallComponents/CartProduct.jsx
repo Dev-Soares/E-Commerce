@@ -1,11 +1,14 @@
 import React from 'react'
 import { useEffect, useState } from "react"
 import axios from "axios"
+import { useAlert } from '../../contexts/AlertContext';
 
 const CartProduct = ({ productId, productTitle, productPrice, productCategory, productQuantity, onUpdate }) => {
 
     const [icon, setIcon] = useState("");
     const [quantity, setQuantity] = useState(productQuantity);
+
+    const { successAlert, errorAlert } = useAlert();
 
     useEffect(() => {
         const iconName = getIcon();
@@ -34,8 +37,10 @@ const CartProduct = ({ productId, productTitle, productPrice, productCategory, p
         try {
             await axios.delete(`/cart/${id}`);
             onUpdate();
+            successAlert("Product removed from cart successfully!");
         } catch (error) {
             console.error("Error removing item from cart:", error);
+            errorAlert("Failed to remove product from cart.");
         }
     };
 
