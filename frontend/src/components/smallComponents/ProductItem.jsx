@@ -9,18 +9,18 @@ const ProductItem = ({ productTitle, productPrice, productCategory, productId, p
     const [icon, setIcon] = useState(null)
     const [soldQuantity, setSoldQuantity] = useState(null)
 
-    const generateRandom = ( multiplier, decimals ) => {
-        const randomNumber = Math.random() * multiplier;
+    const generateRandom = (min, max, decimals) => {
+        const randomNumber = Math.random() * (max - min) + min;
         return randomNumber.toFixed(decimals);
     }
 
     const getSoldQuantity = () => {
-        const value = generateRandom(1000,0);
+        const value = generateRandom(1000,5000,0);
         return setSoldQuantity(value);
     } 
 
     const getGrade = () => {
-        const value = generateRandom(5, 1);
+        const value = generateRandom(4, 5, 1);
         return setGrade(value)
     }
 
