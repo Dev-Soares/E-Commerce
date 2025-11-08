@@ -7,40 +7,44 @@ import ListProductPage from './pages/ListProductPage.jsx'
 import ProductPage from './pages/ProductPage.jsx'
 import CartPage from './pages/CartPage.jsx'
 import axios from 'axios'
+import { AlertProvider } from './contexts/AlertContext.jsx';
 
 axios.defaults.baseURL = import.meta.env.VITE_API_URL;
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
+
     <BrowserRouter>
-      <Routes> 
-          <Route 
-              path='/'
-              element={
-                <MainPage />
-              }
-            />
-            <Route
-              path="/list-product"
-              element={
-                <ListProductPage />
-              }
-            />
-            <Route
-              path="/product-page"
-              element={
-                <ProductPage />
-              }
-            />
-            <Route
-              path="/cart-page"
-              element={
-                <CartPage />
-              }
-            />
+      <AlertProvider>
+        <Routes>
+          <Route
+            path='/'
+            element={
+              <MainPage />
+            }
+          />
+          <Route
+            path="/list-product"
+            element={
+              <ListProductPage />
+            }
+          />
+          <Route
+            path="/product-page"
+            element={
+              <ProductPage />
+            }
+          />
+          <Route
+            path="/cart-page"
+            element={
+              <CartPage />
+            }
+          />
 
 
-      </Routes>
+        </Routes>
+      </AlertProvider>
     </BrowserRouter>
   </StrictMode>,
 )
