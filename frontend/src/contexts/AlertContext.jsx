@@ -13,7 +13,7 @@ export const AlertProvider = ({children}) => {
         <SuccessAlert t={t} message={message} />
        ), {
         duration: 4000,
-        position: 'top-right',
+        position: 'top-center',
        });
     }
 
@@ -22,7 +22,7 @@ export const AlertProvider = ({children}) => {
             <ErrorAlert t={t} message={message} />
         ), {
             duration: 4000,
-            position: 'top-right',
+            position: 'top-center',
         });
     }
 
