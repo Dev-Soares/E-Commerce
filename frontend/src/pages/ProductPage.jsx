@@ -19,8 +19,7 @@ const ProductPage = () => {
     const fetchProducts = async () => {
         try {
             const response = await axios.get('/products');
-            
-            // Embaralha o array e pega 3 aleatórios
+        
             const shuffled = response.data.sort(() => Math.random() - 0.5);
             setProducts(shuffled.slice(0, 3));
         } catch (error) {
@@ -54,9 +53,9 @@ const ProductPage = () => {
         <main className=" min-h-screen w-full p-0 m-0 overflow-x-hidden overflow-y-auto">
             <Navbar isSidebarOpen={isSidebarOpen} setIsSidebarOpen={setIsSidebarOpen} />
             <Sidebar isSidebarOpen={isSidebarOpen} setIsSidebarOpen={setIsSidebarOpen} />
-            <div className='min-h-screen w-full flex flex-col lg:flex-row p-8 md:p-16 bg-white gap-8 justify-center items-center '>
-                <div className='w-full h-auto flex flex-col gap-2 md:max-w-[70%] self-center '>
-                    <div className='w-full h-auto flex justify-center items-center p-4 border-2 border-gray-200 bg-orange-600 rounded-xl shadow-md xl:w-[60%] xl:self-center xl:h-60'>
+            <div className='min-h-screen w-full flex flex-col lg:flex-row p-8 md:p-16 bg-white gap-8 justify-between items-start '>
+                <div className='w-full h-auto flex flex-col gap-2 md:max-w-[70%]  '>
+                    <div className='w-full h-auto flex justify-center items-center p-4 border-2 border-gray-200 bg-orange-600 rounded-xl shadow-md xl:w-[80%] xl:self-center xl:h-60'>
                         <span className='material-symbols-outlined text-white text-9xl! hover:scale-115 transition-transform duration-300'>{icon}</span>
                     </div>
                     <div className='w-full h-auto flex flex-col gap-2 mt-4 mb-8 '>

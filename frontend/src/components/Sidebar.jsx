@@ -1,4 +1,11 @@
+import { useCart } from '../contexts/CartContext.jsx';
+
+
 const Sidebar = ({ isSidebarOpen, setIsSidebarOpen }) => {
+
+  const { cartNumber } = useCart();
+
+
   return (
      
       <aside
@@ -49,7 +56,7 @@ const Sidebar = ({ isSidebarOpen, setIsSidebarOpen }) => {
               href="/cart-page"
               className="text-white text-lg font-semibold hover:bg-white/10 p-3 rounded-lg transition flex items-center gap-2"
             >
-              <span className="material-symbols-outlined">shopping_cart</span>Cart
+              <span className="material-symbols-outlined">shopping_cart</span>Cart <span className='w-5 h-5 rounded-full bg-white text-[var(--color-main)] flex justify-center items-center text-sm font-bold'>{cartNumber}</span>
             </a>
           </nav>
         </div>
