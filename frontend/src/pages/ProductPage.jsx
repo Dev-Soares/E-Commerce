@@ -6,8 +6,11 @@ import { useState } from 'react';
 import axios from 'axios';
 import { useEffect } from 'react';
 import ProductItem from '../components/smallComponents/ProductItem';
+import { useCart } from '../contexts/CartContext';
 
 const ProductPage = () => {
+
+    const { addProductToCart } = useCart();
 
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
     const [products, setProducts] = useState([]);
@@ -40,13 +43,7 @@ const ProductPage = () => {
 
     const handleAddToCart = async (e) => {
         e.stopPropagation();
-
-        try {
-            await axios.post(`/cart/${productId}`);
-        } catch (error) {
-            
-            console.error("Error adding product to cart:", error);
-        }
+        addProductToCart(productId);
     };
 
     return (
