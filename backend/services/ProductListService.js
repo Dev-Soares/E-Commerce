@@ -59,7 +59,7 @@ const ProductListService = {
 
     getNumberOfPages: async () => {
         const totalProducts = await prisma.product.count();
-        const productsShownPerPage = 5;
+        const productsShownPerPage = 4;
         return Math.ceil(totalProducts / productsShownPerPage);
     }
 }

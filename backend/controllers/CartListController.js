@@ -2,9 +2,11 @@ import CartListService from "../services/CartListService.js";
 
 const CartListController = {
 
-    getAllCartItems: async (req, res) => {
+    getCartItems: async (req, res) => {
+
+        const {page, limit} = req.query;
         try {
-            const items = await CartListService.getAllCartItems();
+            const items = await CartListService.getCartItems(page, limit);
             return res.status(200).json(items);
         } catch (error) {
             return res.status(500).json({ error: "Failed to fetch cart items" });
@@ -49,6 +51,15 @@ const CartListController = {
             return res.status(200).json({ totalItems });
         } catch (error) {
             return res.status(500).json({ error: "Failed to fetch total cart items" });
+        }
+    },
+
+    getCartPages: async (req,res) => {
+        try { 
+            const numberOfPages = await CartListService.getCartPages();
+            return res.status(200).json({ numberOfPages });
+        } catch (error) {
+            return res.status(500).json({ error: "Failed to fetch cart pages" });
         }
     }
 

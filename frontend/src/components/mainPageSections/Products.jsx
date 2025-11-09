@@ -14,7 +14,7 @@ const Products = () => {
 
   const fetchProductsByPage = async (page) => {
     try {
-      const response = await axios.get(`/products?page=${page}&limit=5`);
+      const response = await axios.get(`/products?page=${page}&limit=4`);
       setProducts([...response.data]);
     } catch (error) {
       console.error("Error fetching products:", error);
@@ -71,6 +71,7 @@ const Products = () => {
   }
 
   const handlePageChange = (newPage) => {
+    setCategory("All Categories"); //gambiarra que tem que ser resolvida depois
     fetchProductsByPage(newPage);
   }
 
@@ -95,16 +96,19 @@ const Products = () => {
               />
             )
           })}
-          <div className='flex flex-row gap-2'>
+          
+        </div>
+        <div className='flex flex-row gap-4 self-center my-16'>
             { numberOfPages.map((page) => {
               return (
-                <button key={page} onClick={() => handlePageChange(page)}>
+                <button className='border p-2 px-3 text-lg rounded-lg text-white bg-[var(--color-main)] hover:bg-[var(--color-main-light)] transition-all duration-600 cursor-pointer hover:translate-y-[-2px]' 
+                key={page}
+                 onClick={() => handlePageChange(page)}>
                   {page}
                 </button>
               )
             })}
           </div>
-        </div>
 
     </section>
   )

@@ -2,10 +2,21 @@ import prisma from "../config/prisma.js";
 
 const CartListService = {
 
-    getAllCartItems: async () => {
-        return await prisma.cart.findMany({
-            include: { product: true }
-        });
+    getCartItems: async (page, limit) => {
+
+        const pageNumber = parseInt(page);
+        const limitNumber = parseInt(limit);
+        if (!isNaN(pageNumber) && !isNaN(limitNumber) && pageNumber > 0 && limitNumber > 0) {
+
+            return await prisma.cart.findMany({
+                include: { product: true },
+                skip: (pageNumber - 1) * limitNumber,
+                take: limitNumber
+            });
+        } else {
+            console.error("Invalid page or limit parameters. Returning all cart items.");
+        }
+        
     },
 
     deleteCartItem: async (id) => {
@@ -50,8 +61,14 @@ const CartListService = {
 
     getCartTotalItems: async () => {       
         return await prisma.cart.count();
-    }
+    },
 
+    getCartPages: async () => {
+        
+        const limitNumber = 3;
+        const totalCartItems = await prisma.cart.count();
+        return Math.ceil(totalCartItems / limitNumber);
+    }
     
 }
 

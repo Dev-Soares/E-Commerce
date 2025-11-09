@@ -24,13 +24,23 @@ export const CartProvider = ({ children }) => {
         }
     };
 
-    const fetchCartItems = async () => {
+    const fetchCartItems = async (page) => {
 
         try {
-            const response = await axios.get("/cart");
+            const response = await axios.get(`/cart?page=${page}&limit=3`);
             setCartItems([...response.data]);
         } catch (error) {
             console.error("Error fetching cart items:", error);
+        }
+    };
+
+    const getCartPages = async () => {
+
+        try {
+            const response = await axios.get("/cart/pages");
+            return response.data.numberOfPages;
+        } catch (error) {
+            console.error("Error fetching cart pages:", error);
         }
     };
 
@@ -58,7 +68,7 @@ export const CartProvider = ({ children }) => {
         }
     };
 
-    const handleAddQuantity = async (id, productQuantity, setQuantity) => {
+    const handleAddQuantity = async (id, productQuantity) => {
 
         try {
             await axios.put(`/cart/quantity/${id}`, { quantity: productQuantity + 1 });
@@ -69,7 +79,7 @@ export const CartProvider = ({ children }) => {
 
     };
 
-    const handleRemoveQuantity = async (id, productQuantity, setQuantity) => {
+    const handleRemoveQuantity = async (id, productQuantity) => {
 
         if (productQuantity <= 1) {
             return handleRemoveFromCart(id);
@@ -100,6 +110,7 @@ export const CartProvider = ({ children }) => {
         handleRemoveFromCart,
         handleAddQuantity,
         handleRemoveQuantity,
+        getCartPages,
         cartNumber,
         cartItems,
 

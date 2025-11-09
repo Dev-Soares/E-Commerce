@@ -3,9 +3,11 @@ import CartListController from "../controllers/CartListController.js";
 
 const router = express.Router();
 
-router.get("/cart", CartListController.getAllCartItems);
+router.get("/cart", CartListController.getCartItems);
 
-router.post("/cart/:id", CartListController.addCartItem)
+router.get("/cart/pages", CartListController.getCartPages);
+
+router.post("/cart/:id", CartListController.addCartItem);
 
 router.delete("/cart/:id", CartListController.deleteCartItem);
 

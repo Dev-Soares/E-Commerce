@@ -4,16 +4,31 @@ import Sidebar from "../components/Sidebar"
 import { useEffect, useState } from "react"
 import CartProduct from "../components/smallComponents/CartProduct"
 import { useCart } from "../contexts/CartContext"
+import { use } from "react"
 
 
 
 const ListProductPage = () => {
 
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+
+  const [ numberOfPages, setNumberOfPages ] = useState([]);
   
   const [totalPrice, setTotalPrice] = useState(0);
 
-  const { cartItems, fetchCartItems } = useCart();
+  const { cartItems, fetchCartItems, getCartPages } = useCart();
+
+  const getNumberOfPages = async () => {
+
+    const pages = await getCartPages();
+    const pagesArray = [];
+    
+    while (pages > 0) {
+      pagesArray.unshift(pages);
+      pages--;
+    }
+    return setNumberOfPages(pagesArray);
+  }
 
   
 
@@ -29,7 +44,8 @@ const ListProductPage = () => {
   }, [cartItems]);
 
   useEffect(() => {
-    fetchCartItems();
+    fetchCartItems(1);
+    getNumberOfPages();
   }, []);
 
   return (
@@ -51,6 +67,17 @@ const ListProductPage = () => {
                 <CartProduct key={item.product.id} productId={item.product.id} productTitle={item.product.title} productPrice={item.product.price} productCategory={item.product.category} productQuantity={item.quantity} />
               ))
             )}
+            <div className='flex flex-row gap-4 self-center my-16'>
+            { numberOfPages.map((page) => {
+              return (
+                <button className='border p-2 px-3 text-lg rounded-lg text-white bg-[var(--color-main)] hover:bg-[var(--color-main-light)] transition-all duration-600 cursor-pointer hover:translate-y-[-2px]' 
+                key={page}
+                 onClick={() => handlePageChange(page)}>
+                  {page}
+                </button>
+              )
+            })}
+          </div>
           </div>
           <div className="w-full h-auto bg-white flex flex-col justify-center items-center p-5 mt-8 rounded-lg shadow-lg gap-8 md:max-w-[70%] lg:max-w-[50%] md:self-center ">
             <div className="flex justify-start items-start w-full">
