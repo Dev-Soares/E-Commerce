@@ -62,7 +62,6 @@ export const CartProvider = ({ children }) => {
 
         try {
             await axios.put(`/cart/quantity/${id}`, { quantity: productQuantity + 1 });
-            setQuantity(productQuantity + 1);
             researchCartItems();
         } catch (error) {
             console.error("Error adding quantity:", error);
@@ -78,7 +77,6 @@ export const CartProvider = ({ children }) => {
 
         try {
             await axios.put(`/cart/quantity/${id}`, { quantity: productQuantity - 1 });
-            setQuantity(productQuantity - 1);
             researchCartItems();
         } catch (error) {
             console.error("Error removing quantity:", error);

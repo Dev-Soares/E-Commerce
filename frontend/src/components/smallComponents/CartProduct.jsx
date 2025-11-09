@@ -1,7 +1,5 @@
 import React from 'react'
 import { useEffect, useState } from "react"
-import axios from "axios"
-import { useAlert } from '../../contexts/AlertContext';
 import { useCart } from '../../contexts/CartContext';
 
 const CartProduct = ({ productId, productTitle, productPrice, productCategory, productQuantity, }) => {
@@ -43,7 +41,7 @@ const CartProduct = ({ productId, productTitle, productPrice, productCategory, p
             </div>
             <div className='flex flex-col h-full w-full justify-between items-center gap-3 '>
                 <div className='flex flex-row gap-6 justify-center items-center w-full'>
-                    <h3 className='text-xl font-semibold text-center max-w-[50%] '>{productTitle}</h3>
+                    <h3 className='text-xl font-semibold text-center max-w-[50%]'>{productTitle}</h3>
                     <p className='text-xl! font-bold text-[var(--color-main)] mt-1 text-center flex justify-center items-center'>$ {productPrice}</p>
                 </div>
                 <div className='flex flex-row gap-10 justify-center items-center mt-2'>
