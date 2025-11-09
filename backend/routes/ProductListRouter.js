@@ -15,5 +15,7 @@ router.get("/products/:id", ProductListController.getProductById);
 
 router.get("/products/category/:category", ProductListController.getProductsByCategory);
 
+router.get("/products/category/:category/pages", ProductListController.getNumberOfPagesByCategory);
+
 
 export default router;

@@ -27,7 +27,7 @@ const Products = () => {
 
     const formatedCategory = category.toLowerCase();
     try {
-      const response = await axios.get(`/products/category/${formatedCategory}`);
+      const response = await axios.get(`/products/category/${formatedCategory}?page=${pageShown}&limit=4`);
       setProducts([...response.data]);
     } catch (error) {
       console.error("Error fetching products:", error);

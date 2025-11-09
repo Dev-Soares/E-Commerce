@@ -51,8 +51,10 @@ const ProductListController = {
 
         const category = req.params.category;
 
+        const { page, limit } = req.query;
+
         try {
-            const products = await ProductListService.getProductsByCategory(category);
+            const products = await ProductListService.getProductsByCategory(category, page, limit);
             return res.status(200).json(products);
         } catch (error) {
             return res.status(500).json({ error: "Failed to fetch products by category" });
@@ -65,6 +67,16 @@ const ProductListController = {
             return res.status(200).json(numberOfPages);
         } catch (error){
             return res.status(500).json({error: "Failed to fetch number of pages" });
+        }
+    },
+
+    getNumberOfPagesByCategory: async (req, res) => {
+        const category = req.params.category;
+        try {
+            const numberOfPages = await ProductListService.getNumberOfPagesByCategory(category);
+            return res.status(200).json(numberOfPages);
+        } catch (error) {
+            return res.status(500).json({ error: "Failed to fetch number of pages by category" });
         }
     }
 };

@@ -15,7 +15,7 @@ const ProductListService = {
             });
             
         } else {
-            console.error("Invalid page or limit parameters. Returning all products.");
+            console.error("Invalid page or limit parameters.");
             return await prisma.product.findMany();
         }
     },
@@ -51,14 +51,27 @@ const ProductListService = {
 
     },
 
-    getProductsByCategory: async (category) => {
+    getProductsByCategory: async (category, page, limit) => {
+
+        const pageNumber = parseInt(page);
+        const limitNumber = parseInt(limit);
         return await prisma.product.findMany({
-            where: { category: category }
+            where: { category: category },
+            skip: (pageNumber - 1) * limitNumber,
+            take: limitNumber
         });
     }, 
 
     getNumberOfPages: async () => {
         const totalProducts = await prisma.product.count();
+        const productsShownPerPage = 4;
+        return Math.ceil(totalProducts / productsShownPerPage);
+    },
+
+    getNumberOfPagesByCategory: async (category) => {
+        const totalProducts = await prisma.product.count({
+            where: { category: category }
+        });
         const productsShownPerPage = 4;
         return Math.ceil(totalProducts / productsShownPerPage);
     }
