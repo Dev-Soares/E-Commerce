@@ -32,7 +32,7 @@ const ListProductPage = () => {
         }
 
         try {
-            const response = await axios.post('/products', productData);
+            await axios.post('/products/create-product', productData);
             clearInputs();
             successAlert("Product listed successfully!");
         } catch (error) {

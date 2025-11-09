@@ -3,9 +3,11 @@ import ProductListController from "../controllers/ProductListController.js";
 
 const router = express.Router();
 
-router.get("/products", ProductListController.getAllProducts);
+router.get("/products/", ProductListController.getProducts);
 
-router.post("/products", ProductListController.createProduct);
+router.get("/products/pages", ProductListController.getNumberOfPages);
+
+router.post("/products/create-product", ProductListController.createProduct);
 
 router.delete("/products/:id", ProductListController.deleteProduct);
 

@@ -2,10 +2,12 @@ import ProductListService from "../services/ProductListService.js";
 
 const ProductListController = {
     
-    getAllProducts: async  (req, res) => {
-        
+    getProducts: async  (req, res) => {
+
+        const { page, limit } = req.query
+
         try {
-            const products = await ProductListService.getAllProducts();
+            const products = await ProductListService.getProducts(page, limit);
             return res.status(200).json(products);
         } catch (error) {
             return res.status(500).json({ error: "Failed to fetch products" });
@@ -54,6 +56,15 @@ const ProductListController = {
             return res.status(200).json(products);
         } catch (error) {
             return res.status(500).json({ error: "Failed to fetch products by category" });
+        }
+    },
+
+    getNumberOfPages: async (req, res) => {
+        try {
+            const numberOfPages = await ProductListService.getNumberOfPages();
+            return res.status(200).json(numberOfPages);
+        } catch (error){
+            return res.status(500).json({error: "Failed to fetch number of pages" });
         }
     }
 };

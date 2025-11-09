@@ -3,15 +3,18 @@ import axios from 'axios'
 import ProductItem from '../smallComponents/ProductItem.jsx'
 import SelectCategory from '../smallComponents/SelectCategory.jsx'
 
+
 const Products = () => {
 
   const [products, setProducts] = useState([]);
 
+  const [ numberOfPages, setNumberOfPages ] = useState([]);
+
   const [ category, setCategory ] = useState("All Categories");
 
-  const fetchAllProducts = async () => {
+  const fetchProductsByPage = async (page) => {
     try {
-      const response = await axios.get('/products');     
+      const response = await axios.get(`/products?page=${page}&limit=5`);
       setProducts([...response.data]);
     } catch (error) {
       console.error("Error fetching products:", error);
@@ -19,8 +22,10 @@ const Products = () => {
   };
 
   const fetchProductsByCategory = async (category) => {
+
+    const formatedCategory = category.toLowerCase();
     try {
-      const response = await axios.get(`/products/category/${category.toLowerCase()}`);
+      const response = await axios.get(`/products/category/${formatedCategory}`);
       setProducts([...response.data]);
     } catch (error) {
       console.error("Error fetching products:", error);
@@ -29,7 +34,7 @@ const Products = () => {
 
   const fetchProducts = () => {
     if (category === "All Categories") {
-      fetchAllProducts();
+      fetchProductsByPage(1);
     } else {
       fetchProductsByCategory(category);
     }
@@ -38,6 +43,36 @@ const Products = () => {
   useEffect(() => {
     fetchProducts();
   }, [category]);
+
+  useEffect(() => {
+    fetchNumberOfPages();
+  }, []);
+
+  const fetchNumberOfPages = async () => {
+
+    try {
+      const response = await axios.get('/products/pages');
+      const totalPages = response.data;
+      setNumberOfPages(getArrayNumberOfPages(totalPages));
+      return totalPages;
+    } catch (error) {
+      console.error("Error fetching number of pages:", error);
+    }
+
+  };
+
+  const getArrayNumberOfPages = (pagesTotal) => {
+    const pagesArray = [];
+    while (pagesTotal > 0) {
+       pagesArray.unshift(pagesTotal);
+       pagesTotal--;
+    }
+    return pagesArray;
+  }
+
+  const handlePageChange = (newPage) => {
+    fetchProductsByPage(newPage);
+  }
 
   return (
     <section id='products' className="min-h-screen w-full flex flex-col p-4 md:p-12 bg-white">
@@ -60,6 +95,15 @@ const Products = () => {
               />
             )
           })}
+          <div className='flex flex-row gap-2'>
+            { numberOfPages.map((page) => {
+              return (
+                <button key={page} onClick={() => handlePageChange(page)}>
+                  {page}
+                </button>
+              )
+            })}
+          </div>
         </div>
 
     </section>
