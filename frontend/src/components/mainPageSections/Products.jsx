@@ -8,6 +8,8 @@ const Products = () => {
 
   const [products, setProducts] = useState([]);
 
+  const [ pageShown, setPageShown ] = useState(1);
+
   const [ numberOfPages, setNumberOfPages ] = useState([]);
 
   const [ category, setCategory ] = useState("All Categories");
@@ -71,6 +73,7 @@ const Products = () => {
   }
 
   const handlePageChange = (newPage) => {
+    setPageShown(newPage);
     setCategory("All Categories"); //gambiarra que tem que ser resolvida depois
     fetchProductsByPage(newPage);
   }
@@ -101,7 +104,7 @@ const Products = () => {
         <div className='flex flex-row gap-4 self-center my-16'>
             { numberOfPages.map((page) => {
               return (
-                <button className='border p-2 px-3 text-lg rounded-lg text-white bg-[var(--color-main)] hover:bg-[var(--color-main-light)] transition-all duration-600 cursor-pointer hover:translate-y-[-2px]' 
+                <button className={` p-2 px-3 font-bold border-2 border-[var(--color-main-light)] text-lg rounded-lg text-[var(--color-main)] bg-white hover:bg-[var(--color-main-light)] transition-all duration-600 cursor-pointer hover:translate-y-[-2px] ${pageShown === page ? 'border-[var(--color-main)]! bg-[var(--color-main)]! text-white!' : '' }`}
                 key={page}
                  onClick={() => handlePageChange(page)}>
                   {page}
