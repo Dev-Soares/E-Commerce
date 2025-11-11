@@ -84,6 +84,7 @@ export const useProducts = () => {
   useEffect(() => {
     fetchProducts();
     fetchNumberOfPages();
+    setPageShown(1);
   }, [category]);
 
   return {
