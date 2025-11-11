@@ -8,9 +8,15 @@ const app = express();
 
 dotenv.config();
 
+const allowedOrigins = ['https://e-commerce-megashop.vercel.app', 'http://localhost:5173'];
+
 app.use(cors({
-  origin: ['https://e-commerce-megashop.vercel.app', 'http://localhost:5173'] 
+  origin: allowedOrigins
 }));
+
+app.use('/', (req, res) => {
+  res.send('API is running...');
+});
 
 app.use(express.json());
 app.use('/api', ProductListRouter);
