@@ -1,0 +1,43 @@
+version: '3.8'
+
+services:
+  
+  backend:
+    build: 
+      context: ./backend
+      dockerfile: Dockerfile
+    
+    ports:
+      - "3000:3000"
+    
+    environment:
+      NODE_ENV: development
+      PORT: 3000
+      DATABASE_URL: "postgresql://postgres.rgobfxmjvrgozbesecap:ndKeqUdpcqMwQNnc@aws-1-us-east-1.pooler.supabase.com:6543/postgres?pgbouncer=true&connection_limit=1"
+    
+    restart: always
+    
+    volumes:
+      - /app/node_modules
+
+  frontend:
+    build: 
+      context: ./frontend
+      dockerfile: Dockerfile
+      args:
+        VITE_API_URL: http://localhost:3000/api
+    
+    ports:
+      - "5173:5173"
+    
+    environment:
+      VITE_API_URL: http://localhost:3000/api
+    
+    depends_on:
+      - backend
+    
+    restart: always
+    
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules

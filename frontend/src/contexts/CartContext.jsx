@@ -1,14 +1,28 @@
 import axios from "axios";
 import { createContext, useContext, useState, useEffect } from "react";
 import { useAlert } from "./AlertContext";
+import { useCart } from "../hooks/useCart";
 
 const cartContext = createContext();
 
 export const CartProvider = ({ children }) => {
 
+    const { refreshCartItems } = useCart();
+
     const { successAlert, errorAlert } = useAlert();
 
     const [cartNumber, setCartNumber] = useState(0);
+
+    const [totalPrice, setTotalPrice] = useState(0);
+
+    const getCartTotalPrice = async () => {
+        try {
+            const response = await axios.get("/cart/total-price");
+            setTotalPrice(response.data.totalPrice);
+        } catch (error) {
+            console.error("Error fetching cart total price:", error);
+        }
+    };
 
     const fetchCartTotalItems = async () => {
         try {
@@ -25,6 +39,7 @@ export const CartProvider = ({ children }) => {
             await axios.post(`/cart/${productId}`);
             successAlert("Product added to cart successfully!");
             researchCartItems();
+            refreshCartItems();
         } catch (error) {
             console.error("Error adding product to cart:", error);
             errorAlert("Failed to add product to cart.");
@@ -37,6 +52,7 @@ export const CartProvider = ({ children }) => {
             await axios.delete(`/cart/${id}`);
             successAlert("Product removed from cart successfully!");
             researchCartItems();
+            refreshCartItems();
         } catch (error) {
             console.error("Error removing item from cart:", error);
             errorAlert("Failed to remove product from cart.");
@@ -48,6 +64,7 @@ export const CartProvider = ({ children }) => {
         try {
             await axios.put(`/cart/quantity/${id}`, { quantity: productQuantity + 1 });
             researchCartItems();
+            refreshCartItems();
         } catch (error) {
             console.error("Error adding quantity:", error);
         }
@@ -63,6 +80,7 @@ export const CartProvider = ({ children }) => {
         try {
             await axios.put(`/cart/quantity/${id}`, { quantity: productQuantity - 1 });
             researchCartItems();
+            refreshCartItems();
         } catch (error) {
             console.error("Error removing quantity:", error);
         }
@@ -70,6 +88,7 @@ export const CartProvider = ({ children }) => {
 
     const researchCartItems = async () => {
         await fetchCartTotalItems();
+        await getCartTotalPrice();
     };
 
     useEffect(() => {
@@ -81,7 +100,8 @@ export const CartProvider = ({ children }) => {
         addProductToCart,
         handleRemoveFromCart,
         handleAddQuantity,
-        handleRemoveQuantity,  
+        handleRemoveQuantity,
+        totalPrice,  
         cartNumber,
     };
 
