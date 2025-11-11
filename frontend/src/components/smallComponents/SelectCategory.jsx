@@ -21,7 +21,7 @@ const SelectCategory = ({ selectedCategory, setSelectedCategory }) => {
       <div ref={containerRef} className='relative w-[80%] cursor-pointer'>
         <button
           onClick={() => setIsSelectOpen((s) => !s)}
-          className='w-full h-auto p-2 px-4 bg-[var(--color-main)] text-white flex justify-between items-center rounded-xl border-2 border-gray-200 shadow-md max-h-16 cursor-pointer'
+          className='w-full h-auto p-2 px-4 bg-[var(--color-main)] text-white flex justify-between items-center rounded-xl border-2 border-gray-200 shadow-md max-h-16 cursor-pointer font-semibold'
           type="button"
         >
           {selectedCategory}
@@ -35,6 +35,13 @@ const SelectCategory = ({ selectedCategory, setSelectedCategory }) => {
             className='absolute left-0 top-full mt-2 w-full bg-[var(--color-main)] rounded-xl shadow-lg z-50 overflow-hidden cursor-pointer'
             role="menu"
           >
+            <button
+              className='w-full text-left p-2 px-4 flex items-center gap-4 hover:bg-[var(--color-main-light)] font-semibold text-white cursor-pointer transition-colors duration-300'
+              onClick={() => { setSelectedCategory('All Categories'); setIsSelectOpen(false); }}
+              type="button"
+            >
+              All Categories
+            </button>
             <button
               className='w-full text-left p-2 px-4 flex items-center gap-4 hover:bg-[var(--color-main-light)] font-semibold text-white cursor-pointer transition-colors duration-300'
               onClick={() => { setSelectedCategory('Technology'); setIsSelectOpen(false); }}
@@ -78,13 +85,7 @@ const SelectCategory = ({ selectedCategory, setSelectedCategory }) => {
             >
               Others
             </button>
-            <button
-              className='w-full text-left p-2 px-4 flex items-center gap-4 hover:bg-[var(--color-main-light)] font-semibold text-white cursor-pointer transition-colors duration-300'
-              onClick={() => { setSelectedCategory('All Categories'); setIsSelectOpen(false); }}
-              type="button"
-            >
-              All Categories
-            </button>
+            
           </div>
         )}
       </div>

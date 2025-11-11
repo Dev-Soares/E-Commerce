@@ -1,12 +1,12 @@
 import {useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom';
-import { useCart } from '../../contexts/CartContext';
+import { useCartContext } from '../../contexts/CartContext';
 
 
 
 const ProductItem = ({ productTitle, productPrice, productCategory, productId, productDescription }) => {
 
-    const { addProductToCart } = useCart();
+    const { addProductToCart } = useCartContext();
 
     const [grade, setGrade] = useState(null)
     const [icon, setIcon] = useState(null)

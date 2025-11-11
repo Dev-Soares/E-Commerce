@@ -1,10 +1,10 @@
 
-import { useCart } from '../contexts/CartContext.jsx';
+import { useCartContext } from '../contexts/CartContext.jsx';
 
 
 const Navbar = ({ setIsSidebarOpen, isSidebarOpen }) => {
 
-  const { cartNumber } = useCart();
+  const { cartNumber } = useCartContext();
 
   return (
     <header className="w-full h-auto border-product bg-white p-4 lg:py-6 shadow-md z-50 md:px-16">

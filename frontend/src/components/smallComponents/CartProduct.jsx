@@ -1,13 +1,13 @@
 import React from 'react'
 import { useEffect, useState } from "react"
-import { useCart } from '../../contexts/CartContext';
+import { useCartContext } from '../../contexts/CartContext.jsx';
 
 const CartProduct = ({ productId, productTitle, productPrice, productCategory, productQuantity, }) => {
 
     const [icon, setIcon] = useState("");
     const [quantity, setQuantity] = useState(productQuantity);
 
-    const { handleAddQuantity, handleRemoveQuantity, handleRemoveFromCart } = useCart();
+    const { handleAddQuantity, handleRemoveQuantity, handleRemoveFromCart } = useCartContext();
 
     useEffect(() => {
         const iconName = getIcon();

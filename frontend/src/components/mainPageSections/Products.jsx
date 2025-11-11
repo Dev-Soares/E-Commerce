@@ -1,81 +1,14 @@
-import React, { useEffect, useState } from 'react'
-import axios from 'axios'
+import { useProducts } from '../../hooks/useProducts.js'
 import ProductItem from '../smallComponents/ProductItem.jsx'
 import SelectCategory from '../smallComponents/SelectCategory.jsx'
 
 
 const Products = () => {
 
-  const [products, setProducts] = useState([]);
-
-  const [ pageShown, setPageShown ] = useState(1);
-
-  const [ numberOfPages, setNumberOfPages ] = useState([]);
-
-  const [ category, setCategory ] = useState("All Categories");
-
-  const fetchProductsByPage = async (page) => {
-    try {
-      const response = await axios.get(`/products?page=${page}&limit=4`);
-      setProducts([...response.data]);
-    } catch (error) {
-      console.error("Error fetching products:", error);
-    }
-  };
-
-  const fetchProductsByCategory = async (category) => {
-
-    const formatedCategory = category.toLowerCase();
-    try {
-      const response = await axios.get(`/products/category/${formatedCategory}?page=${pageShown}&limit=4`);
-      setProducts([...response.data]);
-    } catch (error) {
-      console.error("Error fetching products:", error);
-    }
-  };
-
-  const fetchProducts = () => {
-    if (category === "All Categories") {
-      fetchProductsByPage(1);
-    } else {
-      fetchProductsByCategory(category);
-    }
-  };
-
-  useEffect(() => {
-    fetchProducts();
-  }, [category]);
-
-  useEffect(() => {
-    fetchNumberOfPages();
-  }, []);
-
-  const fetchNumberOfPages = async () => {
-
-    try {
-      const response = await axios.get('/products/pages');
-      const totalPages = response.data;
-      setNumberOfPages(getArrayNumberOfPages(totalPages));
-      return totalPages;
-    } catch (error) {
-      console.error("Error fetching number of pages:", error);
-    }
-
-  };
-
-  const getArrayNumberOfPages = (pagesTotal) => {
-    const pagesArray = [];
-    while (pagesTotal > 0) {
-       pagesArray.unshift(pagesTotal);
-       pagesTotal--;
-    }
-    return pagesArray;
-  }
+  const { products, category, setCategory, numberOfPages, pageShown, setPageShown } = useProducts();
 
   const handlePageChange = (newPage) => {
-    setPageShown(newPage);
-    setCategory("All Categories"); //gambiarra que tem que ser resolvida depois
-    fetchProductsByPage(newPage);
+    setPageShown(newPage); 
   }
 
   return (

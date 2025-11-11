@@ -61,8 +61,16 @@ const CartListController = {
         } catch (error) {
             return res.status(500).json({ error: "Failed to fetch cart pages" });
         }
-    }
+    },
 
-}
+    getCartTotalPrice: async (req, res) => {
+        try {
+            const totalPrice = await CartListService.getCartTotalPrice();
+            return res.status(200).json({ totalPrice });
+        } catch (error) {
+            return res.status(500).json({ error: "Failed to fetch total cart price" });
+        }
+    }
+};
 
 export default CartListController;

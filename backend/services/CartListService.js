@@ -68,9 +68,21 @@ const CartListService = {
         const limitNumber = 3;
         const totalCartItems = await prisma.cart.count();
         return Math.ceil(totalCartItems / limitNumber);
+    },
+
+    getCartTotalPrice: async () => {
+        const cartItems = await prisma.cart.findMany({
+            include: { product: true }
+        });
+
+        const totalPrice = cartItems.reduce((acc, item) => {
+            return acc + item.quantity * item.product.price;
+        }, 0);
+
+        return totalPrice;
     }
-    
+
 }
 
-export default CartListService
+export default CartListService;
 

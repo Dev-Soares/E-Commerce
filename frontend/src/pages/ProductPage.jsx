@@ -6,11 +6,11 @@ import { useState } from 'react';
 import axios from 'axios';
 import { useEffect } from 'react';
 import ProductItem from '../components/smallComponents/ProductItem';
-import { useCart } from '../contexts/CartContext';
+import { useCartContext } from '../contexts/CartContext';
 
 const ProductPage = () => {
 
-    const { addProductToCart } = useCart();
+    const { addProductToCart } = useCartContext();
 
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
     const [products, setProducts] = useState([]);

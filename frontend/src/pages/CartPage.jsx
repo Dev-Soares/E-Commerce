@@ -1,10 +1,9 @@
 import Navbar from "../components/Navbar"
 import Footer from "../components/Footer"
 import Sidebar from "../components/Sidebar"
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import CartProduct from "../components/smallComponents/CartProduct"
-import { useCart } from "../contexts/CartContext"
-import { use } from "react"
+import { useCart } from "../hooks/useCart"
 
 
 
@@ -12,45 +11,12 @@ const ListProductPage = () => {
 
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
-  const [ numberOfPages, setNumberOfPages ] = useState([]);
-
-  const [pageShown, setPageShown] = useState(1);
-  
-  const [totalPrice, setTotalPrice] = useState(0);
-
-  const { cartItems, fetchCartItems, getCartPages } = useCart();
-
-  const getNumberOfPages = async () => {
-
-    let pages = await getCartPages();
-    const pagesArray = [];
-    
-    while (pages > 0) {
-      pagesArray.unshift(pages);
-      pages--;
-    }
-    return setNumberOfPages(pagesArray);
-  }
+  const { pageShown, setPageShown, fetchCartItems, numberOfPages, cartItems, totalPrice } = useCart();
 
   const handlePageChange = async (page) => {
     setPageShown(page); 
     await fetchCartItems(page);
   }
-  const getTotalPrice = () => {
-
-    return cartItems.reduce((accumulator, item) => {
-      return accumulator + (item.product.price * item.quantity);
-    }, 0);
-  }
-
-  useEffect(() => {
-    setTotalPrice(getTotalPrice());
-  }, [cartItems]);
-
-  useEffect(() => {
-    fetchCartItems(1);
-    getNumberOfPages();
-  }, []);
 
   return (
 

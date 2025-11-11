@@ -1,9 +1,9 @@
-import { useCart } from '../contexts/CartContext.jsx';
+import { useCartContext } from '../contexts/CartContext.jsx';
 
 
 const Sidebar = ({ isSidebarOpen, setIsSidebarOpen }) => {
 
-  const { cartNumber } = useCart();
+  const { cartNumber } = useCartContext();
 
 
   return (

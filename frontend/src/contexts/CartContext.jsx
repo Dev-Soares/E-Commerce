@@ -1,5 +1,5 @@
 import axios from "axios";
-import { createContext, useContext, useState, useEffect, use } from "react";
+import { createContext, useContext, useState, useEffect } from "react";
 import { useAlert } from "./AlertContext";
 
 const cartContext = createContext();
@@ -10,44 +10,19 @@ export const CartProvider = ({ children }) => {
 
     const [cartNumber, setCartNumber] = useState(0);
 
-    const [cartItems, setCartItems] = useState([]);
-
-
     const fetchCartTotalItems = async () => {
         try {
             const response = await axios.get("/cart/total");
             setCartNumber(response.data.totalItems);
-            return response.data.totalItems;
         } catch (error) {
             console.error("Error fetching cart total items:", error);
-            return 0;
-        }
-    };
-
-    const fetchCartItems = async (page) => {
-
-        try {
-            const response = await axios.get(`/cart?page=${page}&limit=3`);
-            setCartItems([...response.data]);
-        } catch (error) {
-            console.error("Error fetching cart items:", error);
-        }
-    };
-
-    const getCartPages = async () => {
-
-        try {
-            const response = await axios.get("/cart/pages");
-            return response.data.numberOfPages;
-        } catch (error) {
-            console.error("Error fetching cart pages:", error);
         }
     };
 
     const addProductToCart = async (productId) => {
 
         try {
-             await axios.post(`/cart/${productId}`);
+            await axios.post(`/cart/${productId}`);
             successAlert("Product added to cart successfully!");
             researchCartItems();
         } catch (error) {
@@ -93,10 +68,8 @@ export const CartProvider = ({ children }) => {
         }
     };
 
-
     const researchCartItems = async () => {
-        fetchCartItems();
-        fetchCartTotalItems();
+        await fetchCartTotalItems();
     };
 
     useEffect(() => {
@@ -105,15 +78,11 @@ export const CartProvider = ({ children }) => {
 
     const contextValue = {
         fetchCartTotalItems,
-        fetchCartItems,
         addProductToCart,
         handleRemoveFromCart,
         handleAddQuantity,
-        handleRemoveQuantity,
-        getCartPages,
+        handleRemoveQuantity,  
         cartNumber,
-        cartItems,
-
     };
 
     return (
@@ -123,6 +92,6 @@ export const CartProvider = ({ children }) => {
     )
 }
 
-export const useCart = () => {
+export const useCartContext = () => {
     return useContext(cartContext);
 }

@@ -15,4 +15,6 @@ router.put("/cart/quantity/:id", CartListController.updateQuantity);
 
 router.get("/cart/total", CartListController.getCartTotalItems);
 
+router.get("/cart/total-price", CartListController.getCartTotalPrice);
+
 export default router;
