@@ -8,6 +8,10 @@ Para iniciar o projeto:
 
 2.  Na raiz do projeto, execute:
 
+    ``docker compose up --build -d``
+
+    após isso, execute: 
+
     ``docker compose up``
 
 3.  A aplicação já estará rodando o backend em `'http://localhost:3000/'` e o frontend em `'http://localhost:5173/'`
