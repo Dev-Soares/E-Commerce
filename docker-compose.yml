@@ -1,7 +1,20 @@
 version: '3.8'
 
 services:
+ 
+  db:
+    image: postgres:15-alpine 
+    container_name: local_postgres_ecommerce
+    restart: always
+    environment:
+      
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB_NAME}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
   
+
   backend:
     build: 
       context: ./backend
@@ -10,16 +23,28 @@ services:
     ports:
       - "3000:3000"
     
+    
+    env_file:
+      - .env 
+      
     environment:
+      
+      DATABASE_URL: postgresql://${DB_USER}:${DB_PASSWORD}@db:5432/${DB_NAME}?schema=public
       NODE_ENV: development
       PORT: 3000
-      DATABASE_URL: "postgresql://postgres.rgobfxmjvrgozbesecap:ndKeqUdpcqMwQNnc@aws-1-us-east-1.pooler.supabase.com:6543/postgres?pgbouncer=true&connection_limit=1"
+      
+    depends_on:
+      - db 
+      
+   
+    command: sh -c "npx prisma migrate deploy && npx prisma db seed && npm start"
     
     restart: always
-    
     volumes:
+      - ./backend:/app
       - /app/node_modules
 
+ 
   frontend:
     build: 
       context: ./frontend
@@ -37,7 +62,10 @@ services:
       - backend
     
     restart: always
-    
     volumes:
       - ./frontend:/app
       - /app/node_modules
+
+
+volumes:
+  postgres_data:

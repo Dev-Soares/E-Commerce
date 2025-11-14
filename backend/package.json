@@ -9,7 +9,9 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "migrate": "npx prisma migrate deploy" 
   },
-  
+  "prisma": {
+    "seed": "node prisma/seed.js"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
