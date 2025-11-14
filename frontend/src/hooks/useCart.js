@@ -1,14 +1,35 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
+import { useAlert } from "../contexts/AlertContext";
+import { useCartContext } from "../contexts/CartContext";
 
 
 export const useCart = () => {
+
+  const { researchCartItems } = useCartContext();
+
+  const { successAlert, errorAlert } = useAlert();
 
   const [pageShown, setPageShown] = useState(1);
 
   const [cartItems, setCartItems] = useState([]);
 
   const [numberOfPages, setNumberOfPages] = useState([]);
+
+  const handleRemoveFromCart = async (id) => {
+
+        try {
+            await axios.delete(`/cart/${id}`);
+            refreshCartItems();
+            researchCartItems();
+            successAlert("Product removed from cart successfully!");
+            
+        } catch (error) {
+            console.error("Error removing item from cart:", error);
+            errorAlert("Failed to remove product from cart.");
+        }
+        
+    };
 
   
   const fetchCartItems = async () => {
@@ -46,9 +67,7 @@ export const useCart = () => {
   };
 
   useEffect(() => {
-
     refreshCartItems();
-
   }, [pageShown]);
 
 
@@ -61,7 +80,8 @@ export const useCart = () => {
     setNumberOfPages,
     fetchCartItems,
     getNumberOfPages, 
-    refreshCartItems
+    refreshCartItems,
+    handleRemoveFromCart
   };
 
 };

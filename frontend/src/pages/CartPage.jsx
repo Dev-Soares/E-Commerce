@@ -12,9 +12,9 @@ const ListProductPage = () => {
 
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
-  const { pageShown, setPageShown, fetchCartItems, numberOfPages, cartItems} = useCart();
+  const { pageShown, setPageShown, fetchCartItems, numberOfPages, cartItems, handleRemoveFromCart } = useCart();
 
-  const { totalPrice } = useCartContext();
+  const { totalPrice, handleAddQuantity, handleRemoveQuantity } = useCartContext();
 
   const handlePageChange = async (page) => {
     setPageShown(page); 
@@ -37,7 +37,7 @@ const ListProductPage = () => {
               <p className="text-xl! font-normal text-gray-500">Your cart is empty.</p>
             ) : (
               cartItems.map(item => (
-                <CartProduct key={item.product.id} productId={item.product.id} productTitle={item.product.title} productPrice={item.product.price} productCategory={item.product.category} productQuantity={item.quantity} />
+                <CartProduct key={item.product.id} productId={item.product.id} productTitle={item.product.title} productPrice={item.product.price} productCategory={item.product.category} productQuantity={item.quantity} handleAddQuantity={handleAddQuantity} handleRemoveQuantity={handleRemoveQuantity} handleRemoveFromCart={handleRemoveFromCart} />
               ))
             )}
             <div className='flex flex-row gap-4 self-center my-16'>

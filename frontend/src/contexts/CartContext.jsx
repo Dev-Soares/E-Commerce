@@ -7,13 +7,13 @@ const cartContext = createContext();
 
 export const CartProvider = ({ children }) => {
 
-    const { refreshCartItems } = useCart();
-
     const { successAlert, errorAlert } = useAlert();
 
     const [cartNumber, setCartNumber] = useState(0);
 
     const [totalPrice, setTotalPrice] = useState(0);
+
+    const [isProcessing, setIsProcessing] = useState(false);
 
     const getCartTotalPrice = async () => {
         try {
@@ -34,44 +34,36 @@ export const CartProvider = ({ children }) => {
     };
 
     const addProductToCart = async (productId) => {
-
+        
         try {
             await axios.post(`/cart/${productId}`);
             successAlert("Product added to cart successfully!");
             researchCartItems();
-            refreshCartItems();
         } catch (error) {
             console.error("Error adding product to cart:", error);
             errorAlert("Failed to add product to cart.");
         }
     };
 
-    const handleRemoveFromCart = async (id) => {
-
-        try {
-            await axios.delete(`/cart/${id}`);
-            successAlert("Product removed from cart successfully!");
-            researchCartItems();
-            refreshCartItems();
-        } catch (error) {
-            console.error("Error removing item from cart:", error);
-            errorAlert("Failed to remove product from cart.");
-        }
-    };
-
-    const handleAddQuantity = async (id, productQuantity) => {
-
+    const handleAddQuantity = async (id, productQuantity, setProductQuantity) => {
+        if (isProcessing) return;
+        setIsProcessing(true);
         try {
             await axios.put(`/cart/quantity/${id}`, { quantity: productQuantity + 1 });
             researchCartItems();
-            refreshCartItems();
+            setProductQuantity(productQuantity + 1);
         } catch (error) {
             console.error("Error adding quantity:", error);
+        } finally {
+            setIsProcessing(false);
         }
 
     };
 
-    const handleRemoveQuantity = async (id, productQuantity) => {
+    const handleRemoveQuantity = async (id, productQuantity, setProductQuantity) => {
+        
+        if (isProcessing) return;
+        setIsProcessing(true);
 
         if (productQuantity <= 1) {
             return handleRemoveFromCart(id);
@@ -80,9 +72,11 @@ export const CartProvider = ({ children }) => {
         try {
             await axios.put(`/cart/quantity/${id}`, { quantity: productQuantity - 1 });
             researchCartItems();
-            refreshCartItems();
+            setProductQuantity(productQuantity - 1);
         } catch (error) {
             console.error("Error removing quantity:", error);
+        } finally {
+            setIsProcessing(false);
         }
     };
 
@@ -97,12 +91,13 @@ export const CartProvider = ({ children }) => {
 
     const contextValue = {
         fetchCartTotalItems,
+        researchCartItems,
         addProductToCart,
-        handleRemoveFromCart,
         handleAddQuantity,
         handleRemoveQuantity,
         totalPrice,  
         cartNumber,
+        
     };
 
     return (
