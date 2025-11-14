@@ -156,6 +156,14 @@ const catalogProducts = [
 ];
 
 async function main() {
+
+  const productCount = await prisma.product.count();
+
+    if (productCount > 0) {
+      console.log("O banco de dados já está populado (seeded). Ignorando o seeding.");
+      return; 
+    }
+
   for (const product of catalogProducts) {
     await prisma.product.create({
         data: product

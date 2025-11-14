@@ -73,7 +73,7 @@ const SelectCategory = ({ selectedCategory, setSelectedCategory }) => {
             </button>
             <button
               className='w-full text-left p-2 px-4 flex items-center gap-4 hover:bg-[var(--color-main-light)] font-semibold text-white cursor-pointer transition-colors duration-300'
-              onClick={() => { setSelectedCategory('Home'); setIsSelectOpen(false); }}
+              onClick={() => { setSelectedCategory('Home-Appliances'); setIsSelectOpen(false); }}
               type="button"
             >
               Home 

@@ -1,19 +1,15 @@
-# MegaShop
+MegaShop
 
-Repositório do Projeto Fullstack que simula um E-commerce, com funcionalidades de páginação, filtragem por categoria, entre outros.
+Fullstack Project Repository simulating an E-commerce, with features like pagination, category filtering, among others.
 
-Para iniciar o projeto:
+To start the project:
 
-1.  Certifique-se de que o Docker Desktop está rodando.
+1. Ensure Docker Desktop is running.
 
-2.  Na raiz do projeto, execute:
+2. In the root of the project, execute:
 
-    ``docker compose up --build -d``
+ ``docker compose up --build -d``
 
-    após isso, execute: 
+The application will be running with the backend at ``'http://localhost:3000/'`` and the frontend at ``'http://localhost:5173/'``
 
-    ``docker compose up``
-
-3.  A aplicação já estará rodando o backend em `'http://localhost:3000/'` e o frontend em `'http://localhost:5173/'`
-
-Para encerrar o ambiente, use: `docker compose down`.
+To shut down the environment, use: docker compose down.
