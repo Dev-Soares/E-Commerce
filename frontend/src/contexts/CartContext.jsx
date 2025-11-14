@@ -18,7 +18,9 @@ export const CartProvider = ({ children }) => {
     const getCartTotalPrice = async () => {
         try {
             const response = await axios.get("/cart/total-price");
-            setTotalPrice(response.data.totalPrice);
+            const newPrice = response.data.totalPrice;
+            const formatedPrice = parseFloat(newPrice.toFixed(2));
+            setTotalPrice(formatedPrice);
         } catch (error) {
             console.error("Error fetching cart total price:", error);
         }
