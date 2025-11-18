@@ -5,16 +5,19 @@ import { useState } from "react"
 import CartProduct from "../components/smallComponents/CartProduct"
 import { useCartContext } from "../contexts/CartContext"
 import { useCart } from "../hooks/useCart"
+import { useSelector } from "react-redux"
 
 
 
 const ListProductPage = () => {
 
+  const totalPrice = useSelector(state => state.cart.totalPrice);
+
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   const { pageShown, setPageShown, fetchCartItems, numberOfPages, cartItems, handleRemoveFromCart } = useCart();
 
-  const { totalPrice, handleAddQuantity, handleRemoveQuantity } = useCartContext();
+  const { handleAddQuantity, handleRemoveQuantity } = useCartContext();
 
   const handlePageChange = async (page) => {
     setPageShown(page); 

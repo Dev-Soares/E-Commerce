@@ -1,12 +1,14 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { useAlert } from "../contexts/AlertContext";
-import { useCartContext } from "../contexts/CartContext";
+import { useDispatch } from "react-redux";
+import { fetchCartTotalItems, fetchCartTotalPrice } from "../state/cart/cartSlice";
+
 
 
 export const useCart = () => {
 
-  const { researchCartItems } = useCartContext();
+  const dispatch = useDispatch();
 
   const { successAlert, errorAlert } = useAlert();
 
@@ -21,7 +23,8 @@ export const useCart = () => {
         try {
             await axios.delete(`/cart/${id}`);
             refreshCartItems();
-            researchCartItems();
+            dispatch(fetchCartTotalItems());
+            dispatch(fetchCartTotalPrice());
             successAlert("Product removed from cart successfully!");
             
         } catch (error) {

@@ -1,46 +1,26 @@
 import axios from "axios";
-import { createContext, useContext, useState, useEffect } from "react";
+import { createContext, useContext, useState } from "react";
 import { useAlert } from "./AlertContext";
-import { useCart } from "../hooks/useCart";
+import { fetchCartTotalItems, fetchCartTotalPrice } from "../state/cart/cartSlice.js";
+import { useDispatch } from "react-redux";
 
 const cartContext = createContext();
 
 export const CartProvider = ({ children }) => {
 
+    const dispatch = useDispatch();
+
     const { successAlert, errorAlert } = useAlert();
 
-    const [cartNumber, setCartNumber] = useState(0);
-
-    const [totalPrice, setTotalPrice] = useState(0);
-
     const [isProcessing, setIsProcessing] = useState(false);
-
-    const getCartTotalPrice = async () => {
-        try {
-            const response = await axios.get("/cart/total-price");
-            const newPrice = response.data.totalPrice;
-            const formatedPrice = parseFloat(newPrice.toFixed(2));
-            setTotalPrice(formatedPrice);
-        } catch (error) {
-            console.error("Error fetching cart total price:", error);
-        }
-    };
-
-    const fetchCartTotalItems = async () => {
-        try {
-            const response = await axios.get("/cart/total");
-            setCartNumber(response.data.totalItems);
-        } catch (error) {
-            console.error("Error fetching cart total items:", error);
-        }
-    };
 
     const addProductToCart = async (productId) => {
         
         try {
             await axios.post(`/cart/${productId}`);
             successAlert("Product added to cart successfully!");
-            researchCartItems();
+            dispatch(fetchCartTotalItems());
+            dispatch(fetchCartTotalPrice());
         } catch (error) {
             console.error("Error adding product to cart:", error);
             errorAlert("Failed to add product to cart.");
@@ -52,8 +32,8 @@ export const CartProvider = ({ children }) => {
         setIsProcessing(true);
         try {
             await axios.put(`/cart/quantity/${id}`, { quantity: productQuantity + 1 });
-            researchCartItems();
             setProductQuantity(productQuantity + 1);
+            dispatch(fetchCartTotalPrice());
         } catch (error) {
             console.error("Error adding quantity:", error);
         } finally {
@@ -73,8 +53,8 @@ export const CartProvider = ({ children }) => {
 
         try {
             await axios.put(`/cart/quantity/${id}`, { quantity: productQuantity - 1 });
-            researchCartItems();
             setProductQuantity(productQuantity - 1);
+            dispatch(fetchCartTotalPrice());
         } catch (error) {
             console.error("Error removing quantity:", error);
         } finally {
@@ -82,23 +62,10 @@ export const CartProvider = ({ children }) => {
         }
     };
 
-    const researchCartItems = async () => {
-        await fetchCartTotalItems();
-        await getCartTotalPrice();
-    };
-
-    useEffect(() => {
-        researchCartItems();
-    }, []);
-
     const contextValue = {
-        fetchCartTotalItems,
-        researchCartItems,
         addProductToCart,
         handleAddQuantity,
         handleRemoveQuantity,
-        totalPrice,  
-        cartNumber,
         
     };
 

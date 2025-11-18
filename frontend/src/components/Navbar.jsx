@@ -1,10 +1,10 @@
-
-import { useCartContext } from '../contexts/CartContext.jsx';
+import { useSelector } from "react-redux";
 
 
 const Navbar = ({ setIsSidebarOpen, isSidebarOpen }) => {
 
-  const { cartNumber } = useCartContext();
+  const cartNumber = useSelector((state) => state.cart.totalItems);
+
 
   return (
     <header className="w-full h-auto border-product bg-white p-4 lg:py-6 shadow-md z-50 md:px-16">
