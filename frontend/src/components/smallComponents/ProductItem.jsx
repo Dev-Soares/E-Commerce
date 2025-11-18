@@ -1,6 +1,6 @@
-import {useState, useEffect, use } from 'react'
+import {useState, useEffect} from 'react'
 import { useNavigate } from 'react-router-dom';
-import useCart from '../../hooks/useCart.js';
+import  { useCart } from '../../hooks/useCart.js';
 
 
 

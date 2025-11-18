@@ -8,7 +8,7 @@ import {
 } from "../state/cart/cartSlice";
 
 export const useCart = () => {
-  
+
   const dispatch = useDispatch();
 
   const { successAlert, errorAlert } = useAlert();

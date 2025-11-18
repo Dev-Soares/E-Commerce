@@ -10,7 +10,7 @@ import { useCart } from '../hooks/useCart.js';
 
 const ProductPage = () => {
 
-    const { addProductToCart } = useCart
+    const { addProductToCart } = useCart()
 
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
     const [products, setProducts] = useState([]);
