@@ -3,7 +3,6 @@ import Footer from "../components/Footer"
 import Sidebar from "../components/Sidebar"
 import { useState } from "react"
 import CartProduct from "../components/smallComponents/CartProduct"
-import { useCartContext } from "../contexts/CartContext"
 import { useCart } from "../hooks/useCart"
 import { useSelector } from "react-redux"
 
@@ -15,9 +14,7 @@ const ListProductPage = () => {
 
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
-  const { pageShown, setPageShown, fetchCartItems, numberOfPages, cartItems, handleRemoveFromCart } = useCart();
-
-  const { handleAddQuantity, handleRemoveQuantity } = useCartContext();
+  const { pageShown, setPageShown, fetchCartItems, numberOfPages, cartItems, handleRemoveFromCart, handleAddQuantity, handleRemoveQuantity } = useCart();
 
   const handlePageChange = async (page) => {
     setPageShown(page); 

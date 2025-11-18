@@ -1,10 +1,10 @@
-import { useCartContext } from '../contexts/CartContext.jsx';
+import { useSelector } from "react-redux"
+
 
 
 const Sidebar = ({ isSidebarOpen, setIsSidebarOpen }) => {
 
-  const { cartNumber } = useCartContext();
-
+  const cartNumber = useSelector((state) => state.cart.totalItems);
 
   return (
      
